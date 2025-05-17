@@ -9,8 +9,6 @@ import { ExitIntentPopup } from "@/components/exit-intent-popup"
 import { SocialProofNotification } from "@/components/social-proof-notification"
 import { MainNav } from "@/components/main-nav"
 import { Footer } from "@/components/footer"
-import { ScrollToTop } from "@/components/scroll-to-top"
-import { PageTransition } from "@/components/page-transition"
 import Script from "next/script"
 import { ImagePreloader } from "@/components/image-preloader"
 
@@ -26,7 +24,6 @@ const criticalImages = [
   "/full-wall-board-and-batten.png",
   "/elegant-board-and-batten.png",
   "/modern-wood-slat-wall.png",
-  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/kudelking_spacious_living_room_with_Roman_Plaster_accent_wall_d4cd77c5-8280-419f-88fb-d7d072386205_0-XQj2uA0B1VrryP5JYu61A7g0JqJlBS.png",
 ]
 
 export const metadata = {
@@ -105,14 +102,13 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
       </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <div className="flex flex-col min-h-screen">
             <MainNav />
-            <main className="flex-grow">
-              <PageTransition>{children}</PageTransition>
-            </main>
+            <main className="flex-grow">{children}</main>
             <Footer />
           </div>
           <CallBackWidget />
@@ -120,12 +116,11 @@ export default function RootLayout({
           <StickyCta />
           <ExitIntentPopup />
           <SocialProofNotification />
-          <ScrollToTop />
           <ImagePreloader images={criticalImages} />
         </ThemeProvider>
 
         {/* Google Analytics */}
-        <Script strategy="afterInteractive" src={`https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX`} />
+        <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX" />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];

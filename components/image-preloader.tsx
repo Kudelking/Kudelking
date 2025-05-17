@@ -8,15 +8,34 @@ interface ImagePreloaderProps {
 
 export function ImagePreloader({ images }: ImagePreloaderProps) {
   useEffect(() => {
-    // Предварительная загрузка изображений
-    images.forEach((src) => {
-      if (src) {
-        const img = new Image()
-        img.src = src
+    const preloadImages = async () => {
+      try {
+        const imagePromises = images.map((src) => {
+          return new Promise<void>((resolve, reject) => {
+            const img = new Image()
+
+            // Убедимся, что URL начинается с / или https://
+            if (src.startsWith("http:")) {
+              src = src.replace("http:", "https:")
+            }
+
+            img.src = src
+            img.onload = () => resolve()
+            img.onerror = () => {
+              console.warn(`Failed to preload image: ${src}`)
+              resolve() // Resolve anyway to not block other images
+            }
+          })
+        })
+
+        await Promise.all(imagePromises)
+      } catch (error) {
+        console.error("Error preloading images:", error)
       }
-    })
+    }
+
+    preloadImages()
   }, [images])
 
-  // Этот компонент не рендерит ничего видимого
   return null
 }
