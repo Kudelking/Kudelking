@@ -7,12 +7,7 @@ import { Button } from "@/components/ui/button"
 import { ServiceCard } from "@/components/service-card"
 import { PromoBanner } from "@/components/promo-banner"
 import { TrustBadges } from "@/components/trust-badges"
-// Удаляем импорт DiscountPopup, если он есть
-// import { DiscountPopup } from "@/components/discount-popup"
-
-// Добавьте константу для URL изображения Roman Plaster
-const ROMAN_PLASTER_IMAGE =
-  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/kudelking_spacious_living_room_with_Roman_Plaster_accent_wall_d4cd77c5-8280-419f-88fb-d7d072386205_0-XQj2uA0B1VrryP5JYu61A7g0JqJlBS.png"
+import { RomanPlasterCard } from "@/components/roman-plaster-card"
 
 export const metadata = {
   title: "Accent Walls Pro | Premium Accent Wall Installation in Montgomery County, DC & Maryland",
@@ -161,9 +156,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Остальные секции остаются без изменений */}
-        {/* ... */}
-
         {/* Trust Badges Section */}
         <section className="py-8">
           <TrustBadges />
@@ -197,13 +189,7 @@ export default function Home() {
                 />
               </div>
               <div className="h-full">
-                <ServiceCard
-                  title="Roman Plaster"
-                  description="Luxurious, timeless finishes with depth and texture inspired by ancient techniques."
-                  icon={ROMAN_PLASTER_IMAGE}
-                  link="/services/roman-plaster"
-                  fallbackIcon={ROMAN_PLASTER_IMAGE}
-                />
+                <RomanPlasterCard />
               </div>
               <div className="h-full">
                 <ServiceCard
@@ -265,8 +251,6 @@ export default function Home() {
           </Link>
         </Button>
       </div>
-      {/* Удаляем компонент DiscountPopup, если он есть */}
-      {/* <DiscountPopup /> */}
     </div>
   )
 }

@@ -34,8 +34,8 @@ export function OptimizedImage({
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(false)
 
-  // Если путь начинается с http или https, используем unoptimized
-  const isExternal = src.startsWith("http") || src.startsWith("https")
+  // Проверяем, является ли URL внешним
+  const isExternal = src && (src.startsWith("http") || src.startsWith("https") || src.startsWith("blob:"))
 
   // Сбросить состояние при изменении src
   useEffect(() => {
@@ -57,10 +57,9 @@ export function OptimizedImage({
     }
 
     // Затем проверяем, является ли это изображением Roman Plaster
-    if (src.includes("roman-plaster")) {
-      setImageSrc(
-        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/kudelking_spacious_living_room_with_Roman_Plaster_accent_wall_d4cd77c5-8280-419f-88fb-d7d072386205_0-XQj2uA0B1VrryP5JYu61A7g0JqJlBS.png",
-      )
+    if (src && src.includes("roman-plaster")) {
+      // Используем локальное изображение вместо внешнего blob URL
+      setImageSrc("/images/services/roman-plaster/luxury-living-room.png")
       return
     }
 

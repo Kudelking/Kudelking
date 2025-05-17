@@ -4,14 +4,12 @@ import type React from "react"
 
 import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
-import { cn } from "@/lib/utils"
 
 interface BeforeAfterSliderProps {
   beforeImage: string
   afterImage: string
   beforeAlt?: string
   afterAlt?: string
-  className?: string
 }
 
 export function BeforeAfterSlider({
@@ -19,15 +17,12 @@ export function BeforeAfterSlider({
   afterImage,
   beforeAlt = "Before",
   afterAlt = "After",
-  className,
 }: BeforeAfterSliderProps) {
   const [sliderPosition, setSliderPosition] = useState(50)
   const [isDragging, setIsDragging] = useState(false)
-  const [isHovering, setIsHovering] = useState(false)
   const sliderRef = useRef<HTMLDivElement>(null)
   const [beforeImgSrc, setBeforeImgSrc] = useState(beforeImage)
   const [afterImgSrc, setAfterImgSrc] = useState(afterImage)
-  const [isLoaded, setIsLoaded] = useState({ before: false, after: false })
 
   // Обработка ошибок загрузки изображений
   const handleBeforeImgError = () => {
@@ -40,60 +35,29 @@ export function BeforeAfterSlider({
     setAfterImgSrc("/accent-wall.png")
   }
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    e.preventDefault()
+  const handleMouseDown = () => {
     setIsDragging(true)
-    updateSliderPosition(e.clientX)
-  }
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setIsDragging(true)
-    if (e.touches[0]) {
-      updateSliderPosition(e.touches[0].clientX)
-    }
   }
 
   const handleMouseUp = () => {
     setIsDragging(false)
   }
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return
-    updateSliderPosition(e.clientX)
-  }
+  const handleMouseMove = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isDragging && e.type !== "touchmove") return
 
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging || !e.touches[0]) return
-    updateSliderPosition(e.touches[0].clientX)
-  }
-
-  const updateSliderPosition = (clientX: number) => {
     if (!sliderRef.current) return
 
     const rect = sliderRef.current.getBoundingClientRect()
+
+    // Get clientX based on whether it's a mouse or touch event
+    const clientX = "touches" in e ? e.touches[0].clientX : e.clientX
+
     const x = Math.max(0, Math.min(clientX - rect.left, rect.width))
     const percent = Math.max(0, Math.min((x / rect.width) * 100, 100))
 
     setSliderPosition(percent)
   }
-
-  // Автоматическая анимация при загрузке
-  useEffect(() => {
-    if (isLoaded.before && isLoaded.after) {
-      // Анимация слайдера при загрузке
-      const timeout = setTimeout(() => {
-        setSliderPosition(25)
-        setTimeout(() => {
-          setSliderPosition(75)
-          setTimeout(() => {
-            setSliderPosition(50)
-          }, 800)
-        }, 800)
-      }, 500)
-
-      return () => clearTimeout(timeout)
-    }
-  }, [isLoaded])
 
   useEffect(() => {
     const handleMouseUpGlobal = () => {
@@ -112,27 +76,13 @@ export function BeforeAfterSlider({
   return (
     <div
       ref={sliderRef}
-      className={cn(
-        "relative w-full h-[300px] sm:h-[400px] md:h-[500px] overflow-hidden rounded-lg cursor-col-resize select-none",
-        isDragging && "cursor-grabbing",
-        className,
-      )}
+      className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] overflow-hidden rounded-lg cursor-col-resize select-none"
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
+      onTouchStart={handleMouseDown}
+      onTouchMove={handleMouseMove}
       onTouchEnd={handleMouseUp}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
     >
-      {/* Loading overlay */}
-      {(!isLoaded.before || !isLoaded.after) && (
-        <div className="absolute inset-0 bg-gray-200 flex items-center justify-center z-10">
-          <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-        </div>
-      )}
-
       {/* Before Image (полное изображение на заднем плане) */}
       <div className="absolute inset-0 w-full h-full">
         <Image
@@ -142,16 +92,12 @@ export function BeforeAfterSlider({
           className="object-cover"
           unoptimized={beforeImgSrc.startsWith("http")}
           onError={handleBeforeImgError}
-          onLoad={() => setIsLoaded((prev) => ({ ...prev, before: true }))}
           priority
         />
       </div>
 
       {/* After Image (обрезанное изображение на переднем плане) */}
-      <div
-        className="absolute inset-0 h-full overflow-hidden transition-all duration-300"
-        style={{ width: `${sliderPosition}%` }}
-      >
+      <div className="absolute inset-0 h-full overflow-hidden" style={{ width: `${sliderPosition}%` }}>
         <Image
           src={afterImgSrc || "/placeholder.svg"}
           alt={afterAlt}
@@ -159,26 +105,17 @@ export function BeforeAfterSlider({
           className="object-cover"
           unoptimized={afterImgSrc.startsWith("http")}
           onError={handleAfterImgError}
-          onLoad={() => setIsLoaded((prev) => ({ ...prev, after: true }))}
           priority
         />
       </div>
 
       {/* Slider Line */}
       <div
-        className={cn(
-          "absolute top-0 bottom-0 w-1 bg-white cursor-col-resize transition-all duration-300",
-          isDragging && "w-1.5",
-        )}
+        className="absolute top-0 bottom-0 w-1 bg-white cursor-col-resize"
         style={{ left: `calc(${sliderPosition}% - 0.5px)` }}
       >
         {/* Slider Handle */}
-        <div
-          className={cn(
-            "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center transition-all duration-300",
-            (isDragging || isHovering) && "scale-110",
-          )}
-        >
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center">
           <div className="flex items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -213,12 +150,8 @@ export function BeforeAfterSlider({
       </div>
 
       {/* Labels */}
-      <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-1.5 text-sm rounded-full font-medium">
-        {beforeAlt}
-      </div>
-      <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1.5 text-sm rounded-full font-medium">
-        {afterAlt}
-      </div>
+      <div className="absolute bottom-4 left-4 bg-black/70 text-white px-2 py-1 text-sm rounded">Before</div>
+      <div className="absolute bottom-4 right-4 bg-black/70 text-white px-2 py-1 text-sm rounded">After</div>
     </div>
   )
 }

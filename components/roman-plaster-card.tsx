@@ -1,26 +1,37 @@
-import Image from "next/image"
 import Link from "next/link"
+import { ArrowRight } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card"
+import { OptimizedImage } from "@/components/optimized-image"
 
 export function RomanPlasterCard() {
+  // Используем локальное изображение вместо внешнего blob URL
+  const localImagePath = "/images/services/roman-plaster/luxury-living-room.png"
+
   return (
-    <div className="group relative overflow-hidden rounded-lg border bg-white shadow-md transition-all hover:shadow-lg">
-      <Link href="/services/roman-plaster" className="absolute inset-0 z-10">
-        <span className="sr-only">View Roman Plaster Service</span>
-      </Link>
-      <div className="aspect-[4/3] w-full overflow-hidden">
-        <Image
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/kudelking_spacious_living_room_with_Roman_Plaster_accent_wall_d4cd77c5-8280-419f-88fb-d7d072386205_0-XQj2uA0B1VrryP5JYu61A7g0JqJlBS.png"
+    <Card className="overflow-hidden transition-all hover:shadow-lg h-full flex flex-col">
+      <div className="relative h-48">
+        <OptimizedImage
+          src={localImagePath}
           alt="Roman Plaster"
-          width={400}
-          height={300}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-          unoptimized
+          fill
+          className="w-full h-full"
+          objectFit="cover"
+          priority
         />
       </div>
-      <div className="p-4">
-        <h3 className="text-xl font-bold">Roman Plaster</h3>
-        <p className="mt-2 text-sm text-gray-600">Elegant, timeless finishes that add luxury and depth to any space.</p>
-      </div>
-    </div>
+      <CardContent className="p-6 flex flex-col flex-grow">
+        <h3 className="text-xl font-bold mb-2">Roman Plaster</h3>
+        <p className="text-muted-foreground mb-4 flex-grow">
+          Luxurious, timeless finishes with depth and texture inspired by ancient techniques.
+        </p>
+        <Link
+          href="/services/roman-plaster"
+          className="group inline-flex items-center text-sm font-medium text-primary mt-auto"
+        >
+          Learn More
+          <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+        </Link>
+      </CardContent>
+    </Card>
   )
 }
