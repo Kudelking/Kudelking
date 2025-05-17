@@ -1,0 +1,179 @@
+import Link from "next/link"
+import Image from "next/image"
+import { ChevronRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { QuoteForm } from "@/components/quote-form"
+
+export const metadata = {
+  title: "Modern Fireplace Build-Outs | AccentWallsPro",
+  description:
+    "Contemporary modern fireplace build-outs with clean lines and minimalist design. Serving the DMV area with premium installation services.",
+}
+
+export default function ModernFireplacePage() {
+  return (
+    <div className="flex flex-col min-h-screen">
+      <main className="flex-1">
+        <section className="py-12 md:py-16 lg:py-20 bg-muted/50">
+          <div className="container">
+            <div className="max-w-3xl mx-auto text-center">
+              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">Modern Fireplace Build-Outs</h1>
+              <p className="mt-4 text-lg text-muted-foreground">
+                Contemporary designs with clean lines and minimalist aesthetics
+              </p>
+              <div className="flex items-center justify-center gap-2 mt-6 text-sm text-muted-foreground">
+                <Link href="/" className="hover:text-foreground">
+                  Home
+                </Link>
+                <ChevronRight className="h-4 w-4" />
+                <Link href="/services" className="hover:text-foreground">
+                  Services
+                </Link>
+                <ChevronRight className="h-4 w-4" />
+                <Link href="/services/fireplace-buildouts" className="hover:text-foreground">
+                  Fireplace Build-Outs
+                </Link>
+                <ChevronRight className="h-4 w-4" />
+                <span>Modern</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-12 md:py-16">
+          <div className="container">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="relative aspect-square">
+                <Image
+                  src="/placeholder.svg?height=600&width=600&query=modern minimalist fireplace buildout"
+                  alt="Modern Fireplace Build-Out"
+                  fill
+                  className="object-cover rounded-lg"
+                />
+              </div>
+              <div>
+                <h2 className="text-3xl font-bold tracking-tight">Contemporary Modern Fireplaces</h2>
+                <p className="mt-4 text-lg text-muted-foreground">
+                  Our modern fireplace build-outs feature clean lines, minimalist design, and sleek materials to create
+                  a contemporary focal point in your living space. These sophisticated installations transform ordinary
+                  fireplaces into stunning architectural features that elevate your entire room.
+                </p>
+                <ul className="mt-6 space-y-3">
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                      ✓
+                    </div>
+                    <span className="ml-3 text-base">Clean lines and minimalist design</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                      ✓
+                    </div>
+                    <span className="ml-3 text-base">Premium materials including concrete, metal, and stone</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                      ✓
+                    </div>
+                    <span className="ml-3 text-base">Custom designed to fit your specific space</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                      ✓
+                    </div>
+                    <span className="ml-3 text-base">Optional integrated media components and lighting</span>
+                  </li>
+                </ul>
+                <div className="mt-8">
+                  <Button size="lg" className="mr-4">
+                    View Gallery
+                  </Button>
+                  <Button size="lg" variant="outline">
+                    Learn More
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-12 md:py-16 bg-muted/30">
+          <div className="container">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              <div>
+                <h2 className="text-3xl font-bold tracking-tight">Why Choose a Modern Fireplace?</h2>
+                <p className="mt-4 text-lg text-muted-foreground">
+                  Modern fireplace build-outs create a sophisticated focal point that instantly elevates your living
+                  space. The clean lines and minimalist design complement contemporary interiors while providing a
+                  stunning architectural feature that becomes the centerpiece of your room.
+                </p>
+                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="bg-background p-6 rounded-lg shadow-sm">
+                    <h3 className="text-xl font-bold">Architectural Focus</h3>
+                    <p className="mt-2 text-muted-foreground">Creates a stunning focal point in any room</p>
+                  </div>
+                  <div className="bg-background p-6 rounded-lg shadow-sm">
+                    <h3 className="text-xl font-bold">Contemporary Style</h3>
+                    <p className="mt-2 text-muted-foreground">Clean lines complement modern interior design</p>
+                  </div>
+                  <div className="bg-background p-6 rounded-lg shadow-sm">
+                    <h3 className="text-xl font-bold">Premium Materials</h3>
+                    <p className="mt-2 text-muted-foreground">High-quality finishes for lasting beauty</p>
+                  </div>
+                  <div className="bg-background p-6 rounded-lg shadow-sm">
+                    <h3 className="text-xl font-bold">Customizable Design</h3>
+                    <p className="mt-2 text-muted-foreground">Tailored to your specific space and preferences</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <QuoteForm />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-12 md:py-16">
+          <div className="container">
+            <h2 className="text-3xl font-bold tracking-tight text-center mb-12">Our Modern Fireplace Projects</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="relative aspect-[4/3] rounded-lg overflow-hidden group">
+                <Image
+                  src="/placeholder.svg?height=400&width=600&query=modern concrete fireplace"
+                  alt="Modern Concrete Fireplace"
+                  fill
+                  className="object-cover transition-transform group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <span className="text-white font-medium">Concrete Fireplace Project</span>
+                </div>
+              </div>
+              <div className="relative aspect-[4/3] rounded-lg overflow-hidden group">
+                <Image
+                  src="/placeholder.svg?height=400&width=600&query=modern metal fireplace"
+                  alt="Modern Metal Fireplace"
+                  fill
+                  className="object-cover transition-transform group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <span className="text-white font-medium">Metal Accent Fireplace</span>
+                </div>
+              </div>
+              <div className="relative aspect-[4/3] rounded-lg overflow-hidden group">
+                <Image
+                  src="/placeholder.svg?height=400&width=600&query=modern stone fireplace"
+                  alt="Modern Stone Fireplace"
+                  fill
+                  className="object-cover transition-transform group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <span className="text-white font-medium">Stone Fireplace Project</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  )
+}
