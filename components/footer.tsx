@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { Mail, MapPin, Phone, Facebook, Instagram, Twitter, Linkedin } from "lucide-react"
+import { Mail, MapPin, Phone, Facebook, Instagram } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function Footer() {
@@ -33,20 +33,7 @@ export function Footer() {
               >
                 <Instagram className="h-5 w-5" />
               </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-primary transition-colors duration-200 bg-background hover:bg-background/80 p-2 rounded-full"
-                aria-label="Twitter"
-              >
-                <Twitter className="h-5 w-5" />
-              </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-primary transition-colors duration-200 bg-background hover:bg-background/80 p-2 rounded-full"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="h-5 w-5" />
-              </Link>
+              {/* Twitter and LinkedIn links removed as requested */}
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button asChild variant="outline" size="sm" className="w-full sm:w-auto">

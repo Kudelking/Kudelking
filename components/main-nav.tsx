@@ -5,7 +5,7 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { ChevronDown, Menu } from "lucide-react"
+import { Menu } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
@@ -126,86 +126,22 @@ export function MainNav() {
                 ></span>
               </Link>
 
-              {/* Services Dropdown */}
-              <div
-                className="relative"
-                onMouseEnter={() => setIsServicesOpen(true)}
-                onMouseLeave={() => setIsServicesOpen(false)}
-                onKeyDown={handleKeyDown}
-              >
-                <button
-                  className={cn(
-                    "text-sm font-medium transition-colors hover:text-primary flex items-center relative group",
-                    pathname.startsWith("/services") && "text-primary font-semibold",
-                  )}
-                  aria-expanded={isServicesOpen}
-                  aria-haspopup="true"
-                >
-                  Services
-                  <ChevronDown
-                    className={cn("ml-0.5 h-3 w-3 transition-transform duration-300", isServicesOpen && "rotate-180")}
-                  />
-                  <span
-                    className={cn(
-                      "absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full",
-                      pathname.startsWith("/services") && "w-full",
-                    )}
-                  ></span>
-                </button>
-
-                {/* Mega Menu */}
-                {isServicesOpen && (
-                  <div
-                    className="absolute left-0 mt-1 w-screen max-w-6xl -translate-x-1/3 bg-white rounded-md shadow-lg z-50 ring-1 ring-black ring-opacity-5 animate-fade-in"
-                    role="menu"
-                    aria-orientation="vertical"
-                  >
-                    <div className="p-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                      {serviceCategories.map((category) => (
-                        <div key={category.href} className="group">
-                          <Link href={category.href} className="block">
-                            <div className="relative h-40 mb-3 overflow-hidden rounded-lg">
-                              <Image
-                                src={category.image || "/placeholder.svg?height=400&width=600&query=accent wall"}
-                                alt={category.name}
-                                fill
-                                className="object-cover transition-transform duration-300 group-hover:scale-105"
-                              />
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                              <h3 className="absolute bottom-3 left-3 text-white font-bold text-lg">{category.name}</h3>
-                            </div>
-                            <p className="text-sm text-gray-600 mb-2 line-clamp-2">{category.description}</p>
-                          </Link>
-                          <ul className="space-y-1">
-                            {category.subcategories.map((subcategory) => (
-                              <li key={subcategory.href}>
-                                <Link
-                                  href={subcategory.href}
-                                  className={cn(
-                                    "text-sm text-gray-500 hover:text-primary hover:underline transition-colors duration-200",
-                                    pathname === subcategory.href && "text-primary font-medium",
-                                  )}
-                                >
-                                  {subcategory.name}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="bg-gray-50 px-5 py-3 flex flex-wrap justify-between items-center rounded-b-md">
-                      <p className="text-sm text-gray-500">Need a custom solution?</p>
-                      <Link
-                        href="/contact"
-                        className="text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200"
-                      >
-                        Contact us for a free consultation →
-                      </Link>
-                    </div>
-                  </div>
+              {/* Services Link - Direct to Services Page */}
+              <Link
+                href="/services"
+                className={cn(
+                  "text-sm font-medium transition-colors hover:text-primary relative group",
+                  pathname === "/services" && "text-primary font-semibold",
                 )}
-              </div>
+              >
+                Services
+                <span
+                  className={cn(
+                    "absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full",
+                    pathname === "/services" && "w-full",
+                  )}
+                ></span>
+              </Link>
 
               <Link
                 href="/portfolio"
@@ -319,55 +255,16 @@ export function MainNav() {
                           </Link>
                         </li>
 
-                        <li className="space-y-2">
-                          <button
+                        <li>
+                          <Link
+                            href="/services"
                             className={cn(
-                              "flex items-center justify-between w-full py-2 px-3 rounded-md hover:bg-muted break-words",
-                              pathname.startsWith("/services") && "text-primary font-medium bg-muted/50",
+                              "flex items-center py-2 px-3 rounded-md hover:bg-muted",
+                              pathname === "/services" && "text-primary font-medium bg-muted/50",
                             )}
-                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                           >
-                            <span className="mr-2">Services</span>
-                            <ChevronDown
-                              className={cn(
-                                "h-4 w-4 flex-shrink-0 transition-transform duration-200",
-                                isMobileMenuOpen && "rotate-180",
-                              )}
-                            />
-                          </button>
-
-                          {isMobileMenuOpen && (
-                            <ul className="pl-4 space-y-2 animate-slide-down">
-                              {serviceCategories.map((category) => (
-                                <li key={category.href}>
-                                  <Link
-                                    href={category.href}
-                                    className={cn(
-                                      "block py-2 px-3 rounded-md hover:bg-muted text-sm",
-                                      pathname === category.href && "text-primary font-medium bg-muted/50",
-                                    )}
-                                  >
-                                    {category.name}
-                                  </Link>
-                                  <ul className="pl-4 space-y-1 mt-1">
-                                    {category.subcategories.map((sub) => (
-                                      <li key={sub.href}>
-                                        <Link
-                                          href={sub.href}
-                                          className={cn(
-                                            "block py-1 px-3 rounded-md hover:bg-muted text-sm",
-                                            pathname === sub.href && "text-primary font-medium bg-muted/50",
-                                          )}
-                                        >
-                                          {sub.name}
-                                        </Link>
-                                      </li>
-                                    ))}
-                                  </ul>
-                                </li>
-                              ))}
-                            </ul>
-                          )}
+                            Services
+                          </Link>
                         </li>
 
                         <li>

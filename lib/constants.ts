@@ -6,6 +6,6 @@ export const SOCIAL_LINKS = {
 
 export const CONTACT_INFO = {
   phone: "240-426-7900",
-  email: "info@accentwallspro.com",
+  email: "builddogllc@gmail.com",
   address: "9811 Bristol Square Ln, Bethesda, MD 20814",
 }
