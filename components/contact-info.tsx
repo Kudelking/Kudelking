@@ -10,7 +10,7 @@ export function ContactInfo() {
           <Phone className="h-5 w-5 text-gray-600 mt-1 mr-4" />
           <div>
             <h3 className="font-medium text-gray-900">Phone</h3>
-            <p className="text-gray-700 mt-1">(301) 555-1234</p>
+            <p className="text-gray-700 mt-1">(240) 426-7900</p>
             <p className="text-sm text-gray-500 mt-1">Mon-Fri, 8am-6pm</p>
           </div>
         </div>
