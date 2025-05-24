@@ -1,148 +1,60 @@
 "use client"
 
 import Image from "next/image"
-import { useState, useEffect } from "react"
+import { useState } from "react"
+import { cn } from "@/lib/utils"
 
 interface OptimizedImageProps {
   src: string
   alt: string
-  fill?: boolean
   width?: number
   height?: number
   className?: string
   priority?: boolean
-  objectFit?: "cover" | "contain" | "fill" | "none" | "scale-down"
+  fill?: boolean
   sizes?: string
   quality?: number
-  fallbackSrc?: string
 }
 
 export function OptimizedImage({
   src,
   alt,
-  fill = false,
   width,
   height,
   className,
   priority = false,
-  objectFit = "cover",
+  fill = false,
   sizes,
-  quality = 80,
-  fallbackSrc,
+  quality = 85,
+  ...props
 }: OptimizedImageProps) {
-  const [imageSrc, setImageSrc] = useState<string>(src)
   const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState(false)
+  const [hasError, setHasError] = useState(false)
 
-  // Проверяем, является ли URL внешним
-  const isExternal = src && (src.startsWith("http") || src.startsWith("https") || src.startsWith("blob:"))
+  // Convert to WebP if not already
+  const optimizedSrc = src.includes(".webp") ? src : src.replace(/\.(jpg|jpeg|png)$/i, ".webp")
 
-  // Сбросить состояние при изменении src
-  useEffect(() => {
-    setImageSrc(src)
-    setError(false)
-    setIsLoading(true)
-  }, [src])
-
-  // Обработка ошибки загрузки
-  const handleError = () => {
-    console.warn(`Image failed to load: ${src}`)
-    setError(true)
-    setIsLoading(false)
-
-    // Сначала используем предоставленный fallbackSrc, если он есть
-    if (fallbackSrc) {
-      setImageSrc(fallbackSrc)
-      return
-    }
-
-    // Затем проверяем, является ли это изображением Roman Plaster
-    if (src && src.includes("roman-plaster")) {
-      // Используем локальное изображение вместо внешнего blob URL
-      setImageSrc("/images/services/roman-plaster/luxury-living-room.png")
-      return
-    }
-
-    // В противном случае используем placeholder
-    setImageSrc(`/placeholder.svg?height=${height || 400}&width=${width || 600}&query=${encodeURIComponent(alt)}`)
-  }
-
-  // Обработка успешной загрузки
-  const handleLoad = () => {
-    setIsLoading(false)
-  }
-
-  const objectFitClass =
-    objectFit === "cover"
-      ? "object-cover"
-      : objectFit === "contain"
-        ? "object-contain"
-        : objectFit === "fill"
-          ? "object-fill"
-          : objectFit === "none"
-            ? "object-none"
-            : "object-scale-down"
-
-  // Проверка на пустой src
-  if (!src && !error) {
-    return fill ? (
-      <div className={`relative ${className || "w-full h-full"} bg-gray-200`}>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-gray-400">{alt || "Image"}</span>
-        </div>
-      </div>
-    ) : (
-      <div
-        className={`relative ${className || ""} bg-gray-200 flex items-center justify-center`}
-        style={{ width: width ? `${width}px` : "100%", height: height ? `${height}px` : "300px" }}
-      >
-        <span className="text-gray-400">{alt || "Image"}</span>
-      </div>
-    )
-  }
-
-  return fill ? (
-    <div className={`relative ${className || "w-full h-full"}`}>
+  return (
+    <div className={cn("relative overflow-hidden", className)}>
       <Image
-        src={imageSrc || "/placeholder.svg"}
+        src={hasError ? src : optimizedSrc} // Fallback to original if WebP fails
         alt={alt}
-        fill
-        className={`${objectFitClass} ${isLoading ? "opacity-0" : "opacity-100"} transition-opacity duration-300`}
-        priority={priority}
-        unoptimized={isExternal || error}
-        onError={handleError}
-        onLoad={handleLoad}
+        width={width}
+        height={height}
+        fill={fill}
         sizes={sizes || "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
         quality={quality}
-      />
-      {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
-          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-        </div>
-      )}
-    </div>
-  ) : (
-    <div
-      className={`relative ${className || ""}`}
-      style={{ width: width ? `${width}px` : "auto", height: height ? `${height}px` : "auto" }}
-    >
-      <Image
-        src={imageSrc || "/placeholder.svg"}
-        alt={alt}
-        width={width || 600}
-        height={height || 400}
-        className={`${objectFitClass} ${isLoading ? "opacity-0" : "opacity-100"} transition-opacity duration-300`}
         priority={priority}
-        unoptimized={isExternal || error}
-        onError={handleError}
-        onLoad={handleLoad}
-        sizes={sizes || "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
-        quality={quality}
+        className={cn("transition-all duration-700 ease-in-out", isLoading ? "scale-105 blur-sm" : "scale-100 blur-0")}
+        onLoad={() => setIsLoading(false)}
+        onError={() => {
+          setHasError(true)
+          setIsLoading(false)
+        }}
+        {...props}
       />
       {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
-          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse" />
       )}
     </div>
   )

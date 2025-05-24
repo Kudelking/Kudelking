@@ -1,6 +1,5 @@
 import { OptimizedImage } from "@/components/optimized-image"
-import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, MapPin, Clock, Palette } from "lucide-react"
 
 interface ProjectCardProps {
   title: string
@@ -10,9 +9,23 @@ interface ProjectCardProps {
   location: string
   image?: string // Для обратной совместимости
   href?: string
+  completionTime?: string
+  materials?: string
+  roomType?: string
 }
 
-export function ProjectCard({ title, description, imageSrc, category, location, image, href = "#" }: ProjectCardProps) {
+export function ProjectCard({
+  title,
+  description,
+  imageSrc,
+  category,
+  location,
+  image,
+  href = "#",
+  completionTime,
+  materials,
+  roomType,
+}: ProjectCardProps) {
   // Используем image в качестве запасного варианта, если imageSrc не предоставлен
   const imageSource = imageSrc || image || "/accent-wall-project.png"
 
@@ -23,7 +36,7 @@ export function ProjectCard({ title, description, imageSrc, category, location, 
     const categoryLower = category.toLowerCase()
 
     if (categoryLower.includes("roman") || categoryLower.includes("plaster")) {
-      return "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/kudelking_spacious_living_room_with_Roman_Plaster_accent_wall_d4cd77c5-8280-419f-88fb-d7d072386205_0-XQj2uA0B1VrryP5JYu61A7g0JqJlBS.png"
+      return "/images/services/roman-plaster/luxury-living-room.png"
     }
 
     if (categoryLower.includes("wood") || categoryLower.includes("slat")) {
@@ -50,37 +63,60 @@ export function ProjectCard({ title, description, imageSrc, category, location, 
   }
 
   return (
-    <Link href={href} className="block h-full">
-      <div className="overflow-hidden rounded-lg shadow-sm border border-gray-100 bg-white transition-all duration-300 hover:shadow-md hover:-translate-y-1 h-full flex flex-col group">
-        <div className="relative h-56 overflow-hidden">
+    <article className="block h-full">
+      <div className="overflow-hidden rounded-lg shadow-sm border border-gray-100 bg-white transition-all duration-300 hover:shadow-lg hover:-translate-y-1 h-full flex flex-col group">
+        <div className="relative h-64 overflow-hidden">
           <OptimizedImage
             src={imageSource}
-            alt={title}
+            alt={`${title} - ${category} installation in ${location}`}
             fill
             className="w-full h-full transition-transform duration-500 group-hover:scale-105"
             objectFit="cover"
             fallbackSrc={getFallbackImage()}
+            priority={false}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
           {category && (
-            <div className="absolute top-3 left-3 bg-primary/90 text-white text-xs font-medium px-2 py-1 rounded-full">
+            <div className="absolute top-3 left-3 bg-primary/95 text-white text-xs font-medium px-3 py-1 rounded-full backdrop-blur-sm">
               {category}
             </div>
           )}
           <div className="absolute bottom-3 left-3 right-3">
-            <h3 className="font-bold text-lg text-white line-clamp-1 group-hover:underline">{title}</h3>
-            <div className="text-sm text-white/90">{location}</div>
+            <h3 className="font-bold text-lg text-white line-clamp-2 group-hover:underline mb-1">{title}</h3>
+            <div className="flex items-center text-sm text-white/90">
+              <MapPin className="h-3 w-3 mr-1" />
+              {location}
+            </div>
           </div>
         </div>
+
         <div className="p-4 flex flex-col flex-grow bg-white">
-          {description && <p className="text-sm text-muted-foreground line-clamp-3 mb-3">{description}</p>}
-          <div className="mt-auto flex justify-end">
-            <span className="inline-flex items-center text-sm font-medium text-primary group-hover:underline">
-              View Project <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </span>
+          {description && (
+            <p className="text-sm text-muted-foreground line-clamp-3 mb-4 leading-relaxed">{description}</p>
+          )}
+
+          {/* Project Details */}
+          <div className="space-y-2 mb-4 text-xs text-muted-foreground">
+            {completionTime && (
+              <div className="flex items-center">
+                <Clock className="h-3 w-3 mr-2" />
+                <span>Completed in {completionTime}</span>
+              </div>
+            )}
+            {roomType && (
+              <div className="flex items-center">
+                <Palette className="h-3 w-3 mr-2" />
+                <span>{roomType}</span>
+              </div>
+            )}
+          </div>
+
+          <div className="mt-auto flex justify-between items-center">
+            <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded">View Details</span>
+            <ArrowRight className="h-4 w-4 text-primary transition-transform group-hover:translate-x-1" />
           </div>
         </div>
       </div>
-    </Link>
+    </article>
   )
 }

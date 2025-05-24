@@ -26,24 +26,30 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "#8B4513", // Saddle Brown - отражает работу с деревом
+          foreground: "#FFFFFF",
+          50: "#FDF8F6",
+          100: "#F2E8E5",
+          200: "#EADDD7",
+          300: "#E0C2B6",
+          400: "#D69E86",
+          500: "#CD7F47",
+          600: "#B8651B",
+          700: "#8B4513",
+          800: "#723A0F",
+          900: "#5D2F0C",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          DEFAULT: "#F5F5DC", // Beige - нейтральный цвет для интерьеров
+          foreground: "#2C1810",
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
+          DEFAULT: "#D2691E", // Chocolate - акцентный цвет
+          foreground: "#FFFFFF",
+        },
+        muted: {
+          DEFAULT: "#F8F6F0",
+          foreground: "#6B5B47",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",

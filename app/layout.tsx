@@ -28,66 +28,46 @@ const criticalImages = [
 
 export const metadata = {
   title: {
-    default: "Accent Walls Pro | Premium Accent Wall Installation in DMV",
-    template: "%s | Accent Walls Pro",
+    default: "Accent Walls Pro | #1 Premium Accent Wall Installation in DMV | Wood Slat, Board & Batten, Roman Plaster",
+    template: "%s | Accent Walls Pro - Premium Wall Installations DMV",
   },
   description:
-    "Transform your space with custom accent walls, board & batten, wood slat walls, fireplaces & media walls. Licensed & insured professionals serving the DMV area.",
+    "★★★★★ Top-rated accent wall specialists in DMV. Custom wood slat walls, board & batten, Roman plaster, fireplace build-outs & media walls. Licensed, insured, 5-year warranty. Free quotes in Bethesda, Silver Spring, Rockville, DC, Maryland & Virginia.",
   keywords: [
-    "accent walls",
-    "board and batten",
-    "wood slat walls",
-    "fireplace build-outs",
-    "media walls",
-    "DMV",
-    "Washington DC",
-    "Maryland",
-    "Virginia",
-    "home improvement",
-    "interior design",
+    "accent walls DMV",
+    "wood slat walls Maryland",
+    "board and batten installation",
+    "Roman plaster contractors",
+    "fireplace build-outs DC",
+    "media walls Virginia",
+    "premium wall installation",
+    "interior design contractors",
+    "Bethesda accent walls",
+    "Silver Spring board batten",
+    "Rockville wood slat",
+    "Washington DC wall contractors",
+    "Montgomery County wall installation",
+    "luxury wall finishes",
+    "custom accent walls",
+    "professional wall contractors",
   ],
-  authors: [{ name: "Accent Walls Pro" }],
+  authors: [{ name: "Accent Walls Pro", url: "https://accentwallspro.com" }],
   creator: "Accent Walls Pro",
   publisher: "Accent Walls Pro",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
-  metadataBase: new URL("https://accentwallspro.com"),
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://accentwallspro.com",
-    title: "Accent Walls Pro | Premium Accent Wall Installation in DMV",
-    description: "Transform your space with custom accent walls, board & batten, wood slat walls, and more.",
-    siteName: "Accent Walls Pro",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Accent Walls Pro - Premium Wall Installations",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Accent Walls Pro | Premium Accent Wall Installation in DMV",
-    description: "Transform your space with custom accent walls, board & batten, wood slat walls, and more.",
-    images: ["/og-image.jpg"],
-    creator: "@accentwallspro",
-  },
-  icons: {
-    icon: [
-      { url: "/favicon.ico" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-    ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  verification: {
+    google: "your-google-verification-code",
+    yandex: "your-yandex-verification-code",
   },
     generator: 'v0.dev'
 }
@@ -128,6 +108,35 @@ export default function RootLayout({
             gtag('js', new Date());
             gtag('config', 'G-XXXXXXXXXX');
           `}
+        </Script>
+        <Script id="organization-schema" type="application/ld+json">
+          {`
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Accent Walls Pro",
+    "url": "https://accentwallspro.com",
+    "logo": "https://accentwallspro.com/logo.png",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+1-240-426-7900",
+      "contactType": "customer service",
+      "availableLanguage": "English"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "9811 Bristol Square Ln",
+      "addressLocality": "Bethesda",
+      "addressRegion": "MD",
+      "postalCode": "20814",
+      "addressCountry": "US"
+    },
+    "sameAs": [
+      "https://www.facebook.com/profile.php?id=61571978974930",
+      "https://www.instagram.com/accentwalls.pro/"
+    ]
+  }
+`}
         </Script>
       </body>
     </html>
