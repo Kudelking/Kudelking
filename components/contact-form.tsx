@@ -13,7 +13,10 @@ import { cn } from "@/lib/utils"
 
 export function ContactForm() {
   const [formState, setFormState] = useState<"idle" | "submitting" | "success" | "error">("idle")
+  const [result, setResult] = useState("")
   const [formData, setFormData] = useState({
+    access_key: "bec21d86-d2e6-4b7e-9cf4-bdeb6ae2bf54",
+    subject: "New Contact Form Submission from Accent Walls Pro",
     name: "",
     email: "",
     phone: "",
@@ -131,18 +134,17 @@ export function ContactForm() {
     return isValid
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const submitForm = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (!validateForm()) {
       return
     }
 
-    setFormState("submitting")
-
     try {
-      // Submit to our API route
-      const response = await fetch("/api/contact", {
+      setFormState("submitting")
+
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -150,29 +152,57 @@ export function ContactForm() {
         body: JSON.stringify(formData),
       })
 
-      const result = await response.json()
+      const data = await response.json()
+      console.log(data)
 
-      if (result.success) {
-        // Redirect to thank you page
-        window.location.href = "/thank-you"
+      setResult(data.message)
+
+      if (data.success) {
+        setFormState("success")
+        // Reset form after successful submission
+        setFormData({
+          access_key: "bec21d86-d2e6-4b7e-9cf4-bdeb6ae2bf54",
+          subject: "New Contact Form Submission from Accent Walls Pro",
+          name: "",
+          email: "",
+          phone: "",
+          serviceType: "",
+          message: "",
+          preferredContact: "email",
+        })
+        setTouched({})
+        setErrors({})
+
+        // Redirect to thank you page after 2 seconds
+        setTimeout(() => {
+          window.location.href = "/thank-you"
+        }, 2000)
       } else {
+        console.log(data)
         setFormState("error")
       }
     } catch (error) {
-      console.error("Error submitting form:", error)
+      console.log(error)
       setFormState("error")
+      setResult("Something went wrong!")
     }
+
+    // Clear result and status after 5 seconds
+    setTimeout(() => {
+      setResult("")
+      setFormState("idle")
+    }, 5000)
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={submitForm} className="space-y-6">
       {formState === "success" && (
         <div className="bg-green-50 border border-green-200 rounded-md p-4 flex items-start mb-6 animate-fade-in">
           <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 mr-3" />
           <div>
             <h3 className="text-green-800 font-medium">Message sent successfully!</h3>
             <p className="text-green-700 text-sm mt-1">
-              Thank you for contacting us. We'll get back to you within 24 hours.
+              {result || "Thank you for contacting us. We'll get back to you within 24 hours."}
             </p>
           </div>
         </div>
@@ -183,7 +213,9 @@ export function ContactForm() {
           <AlertCircle className="h-5 w-5 text-red-500 mt-0.5 mr-3" />
           <div>
             <h3 className="text-red-800 font-medium">Something went wrong</h3>
-            <p className="text-red-700 text-sm mt-1">Please try again or contact us directly at (240) 426-7900.</p>
+            <p className="text-red-700 text-sm mt-1">
+              {result || "Please try again or contact us directly at (240) 426-7900."}
+            </p>
           </div>
         </div>
       )}

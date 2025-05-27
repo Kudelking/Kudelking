@@ -1,7 +1,4 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { Resend } from "resend"
-
-const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,7 +9,6 @@ export async function POST(request: NextRequest) {
       firstName: body.firstName,
       lastName: body.lastName,
       service: body.service,
-      email: body.email ? "***@***.***" : "none",
     })
 
     // Extract form data
@@ -39,52 +35,50 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, message: "Missing required fields" }, { status: 400 })
     }
 
-    console.log("Attempting to send quote email via Resend...")
+    console.log("Attempting to send quote email via Web3Forms...")
 
-    // Send email notification using Resend
-    const { data, error } = await resend.emails.send({
-      from: "onboarding@resend.dev",
-      to: ["builddogllc@gmail.com"],
-      subject: `New Quote Request from ${firstName} ${lastName} - ${service}`,
-      html: `
-        <h2>New Quote Request</h2>
-        
-        <h3>Contact Information:</h3>
-        <p><strong>Name:</strong> ${firstName} ${lastName}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone}</p>
-        <p><strong>Lead Source:</strong> ${leadSource}</p>
-        
-        <h3>Project Details:</h3>
-        <p><strong>Service:</strong> ${service}</p>
-        <p><strong>Timeline:</strong> ${timeline}</p>
-        <p><strong>Project Details:</strong> ${projectDetails || "Not provided"}</p>
-        
-        <h3>Location:</h3>
-        <p><strong>Address:</strong> ${address}</p>
-        <p><strong>City:</strong> ${city}</p>
-        <p><strong>State:</strong> ${state}</p>
-        <p><strong>ZIP:</strong> ${zip}</p>
-        
-        <h3>Budget:</h3>
-        <p><strong>Budget Range:</strong> ${budget}</p>
-        
-        <h3>Marketing:</h3>
-        <p><strong>Opted in for marketing emails:</strong> ${marketing ? "Yes" : "No"}</p>
-        
-        <hr>
-        <p><small>Submitted at: ${new Date().toLocaleString()}</small></p>
-      `,
-      replyTo: email,
+    // Send email using Web3Forms
+    const web3formsResponse = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        access_key: "bec21d86-d2e6-4b7e-9cf4-bdeb6ae2bf54",
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        phone: phone,
+        lead_source: leadSource,
+        service: service,
+        project_details: projectDetails || "Not provided",
+        timeline: timeline,
+        address: address,
+        city: city,
+        state: state,
+        zip: zip,
+        budget: budget,
+        marketing_consent: marketing ? "Yes" : "No",
+        subject: `New Quote Request from ${firstName} ${lastName} - ${service}`,
+        from_name: "Accent Walls Pro Website",
+        to: "builddogllc@gmail.com",
+        replyto: email,
+        // Additional Web3Forms options
+        botcheck: false,
+        redirect: false,
+      }),
     })
 
-    if (error) {
-      console.error("Resend error:", error)
+    const result = await web3formsResponse.json()
+
+    if (web3formsResponse.ok && result.success) {
+      console.log("Quote email sent successfully via Web3Forms:", result)
+      return NextResponse.json({ success: true, message: "Quote request submitted successfully" })
+    } else {
+      console.error("Web3Forms error:", result)
       return NextResponse.json({ success: false, message: "Failed to send email" }, { status: 500 })
     }
-
-    console.log("Quote email sent successfully:", data)
-    return NextResponse.json({ success: true, message: "Quote request submitted successfully", emailId: data?.id })
   } catch (error) {
     console.error("Error processing quote request:", error)
     return NextResponse.json(

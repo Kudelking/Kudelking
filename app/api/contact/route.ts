@@ -1,14 +1,11 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { Resend } from "resend"
-
-const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(request: NextRequest) {
   try {
     console.log("Contact form API route called")
 
     const body = await request.json()
-    console.log("Form data received:", { ...body, email: body.email ? "***@***.***" : "none" })
+    console.log("Form data received:", { name: body.name, email: body.email ? "***@***.***" : "none" })
 
     // Extract form data
     const { name, email, phone, serviceType, message, preferredContact } = body
@@ -19,35 +16,42 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, message: "Missing required fields" }, { status: 400 })
     }
 
-    console.log("Attempting to send email via Resend...")
+    console.log("Attempting to send email via Web3Forms...")
 
-    // Send email notification using Resend
-    const { data, error } = await resend.emails.send({
-      from: "onboarding@resend.dev",
-      to: ["builddogllc@gmail.com"],
-      subject: `New Contact Form Submission from ${name}`,
-      html: `
-        <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone || "Not provided"}</p>
-        <p><strong>Service Interest:</strong> ${serviceType || "Not specified"}</p>
-        <p><strong>Preferred Contact:</strong> ${preferredContact}</p>
-        <h3>Message:</h3>
-        <p>${message}</p>
-        <hr>
-        <p><small>Submitted at: ${new Date().toLocaleString()}</small></p>
-      `,
-      replyTo: email,
+    // Send email using Web3Forms
+    const web3formsResponse = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        access_key: "bec21d86-d2e6-4b7e-9cf4-bdeb6ae2bf54",
+        name: name,
+        email: email,
+        phone: phone || "Not provided",
+        service_interest: serviceType || "Not specified",
+        preferred_contact: preferredContact,
+        message: message,
+        subject: `New Contact Form Submission from ${name}`,
+        from_name: "Accent Walls Pro Website",
+        to: "builddogllc@gmail.com",
+        replyto: email,
+        // Additional Web3Forms options
+        botcheck: false,
+        redirect: false,
+      }),
     })
 
-    if (error) {
-      console.error("Resend error:", error)
+    const result = await web3formsResponse.json()
+
+    if (web3formsResponse.ok && result.success) {
+      console.log("Email sent successfully via Web3Forms:", result)
+      return NextResponse.json({ success: true, message: "Form submitted successfully" })
+    } else {
+      console.error("Web3Forms error:", result)
       return NextResponse.json({ success: false, message: "Failed to send email" }, { status: 500 })
     }
-
-    console.log("Email sent successfully:", data)
-    return NextResponse.json({ success: true, message: "Form submitted successfully", emailId: data?.id })
   } catch (error) {
     console.error("Error processing contact form:", error)
     return NextResponse.json(
