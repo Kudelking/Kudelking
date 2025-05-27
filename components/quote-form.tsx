@@ -192,14 +192,29 @@ export function QuoteForm() {
 
     setIsSubmitting(true)
 
-    // For demo, add console logs
-    console.log("Form submitted with data:", formData)
+    try {
+      // Submit to our API route
+      const response = await fetch("/api/quote", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+      const result = await response.json()
 
-    setIsSubmitting(false)
-    setIsSubmitted(true)
+      if (result.success) {
+        // Redirect to thank you page
+        window.location.href = "/thank-you"
+      } else {
+        console.error("Failed to submit quote request")
+        setIsSubmitting(false)
+      }
+    } catch (error) {
+      console.error("Error submitting quote request:", error)
+      setIsSubmitting(false)
+    }
   }
 
   // Add functions to navigate form steps

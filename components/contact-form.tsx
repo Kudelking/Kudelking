@@ -140,23 +140,26 @@ export function ContactForm() {
 
     setFormState("submitting")
 
-    // Simulate form submission
     try {
-      // In a real implementation, you would send the form data to your server or a form service
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-      setFormState("success")
-      // Reset form after successful submission
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        serviceType: "",
-        message: "",
-        preferredContact: "email",
+      // Submit to our API route
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       })
-      setTouched({})
-      setErrors({})
+
+      const result = await response.json()
+
+      if (result.success) {
+        // Redirect to thank you page
+        window.location.href = "/thank-you"
+      } else {
+        setFormState("error")
+      }
     } catch (error) {
+      console.error("Error submitting form:", error)
       setFormState("error")
     }
   }
