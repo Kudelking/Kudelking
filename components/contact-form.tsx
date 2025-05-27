@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -21,7 +20,6 @@ export function ContactForm() {
     serviceType: "",
     message: "",
     preferredContact: "email",
-    newsletter: false,
   })
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [touched, setTouched] = useState<Record<string, boolean>>({})
@@ -59,10 +57,6 @@ export function ContactForm() {
         return newErrors
       })
     }
-  }
-
-  const handleCheckboxChange = (name: string, checked: boolean) => {
-    setFormData((prev) => ({ ...prev, [name]: checked }))
   }
 
   const validateField = (name: string, value: string) => {
@@ -159,7 +153,6 @@ export function ContactForm() {
         serviceType: "",
         message: "",
         preferredContact: "email",
-        newsletter: false,
       })
       setTouched({})
       setErrors({})
@@ -323,17 +316,6 @@ export function ContactForm() {
             </Label>
           </div>
         </div>
-      </div>
-
-      <div className="flex items-center space-x-2">
-        <Checkbox
-          id="newsletter"
-          checked={formData.newsletter}
-          onCheckedChange={(checked) => handleCheckboxChange("newsletter", checked as boolean)}
-        />
-        <Label htmlFor="newsletter" className="font-normal text-sm">
-          Subscribe to our newsletter for design tips and special offers
-        </Label>
       </div>
 
       <Button type="submit" className="w-full relative overflow-hidden group" disabled={formState === "submitting"}>

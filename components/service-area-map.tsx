@@ -30,7 +30,14 @@ export function ServiceAreaMap() {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
       <div className="relative h-64 w-full">
-        <Image src="/images/dmv-map.png" alt="DMV Area Map" fill className="object-cover" unoptimized />
+        <Image
+          src="/images/dmv-map.png"
+          alt="DMV Service Area Map - Washington DC, Maryland, Virginia"
+          fill
+          className="object-cover"
+          priority
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
         <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
           <h3 className="text-white text-xl font-bold shadow-text">DMV Service Area</h3>
         </div>

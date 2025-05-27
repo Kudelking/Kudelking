@@ -16,7 +16,7 @@ const serviceCategories = [
     id: "accent-walls",
     title: "Accent Walls",
     description: "Modern geometric designs, wood slat walls, and custom patterns to transform any room.",
-    image: "/geometric-accent-wall.png",
+    image: "/images/services/accent-walls/geometric-modern.jpg",
     link: "/services/accent-walls",
     variants: [
       {
