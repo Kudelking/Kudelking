@@ -18,14 +18,14 @@ export function ProjectCard({ title, description, imageSrc, category, location, 
   // Generate comprehensive SEO-friendly alt text
   const generateAltText = () => {
     const categoryText = category ? `${category.charAt(0).toUpperCase() + category.slice(1)} ` : ""
-    const locationText = location ? ` в ${location}` : ""
-    return `${categoryText}инсталляция акцентной стены${locationText} - ${title} от Accent Walls Pro`
+    const locationText = location ? ` in ${location}` : ""
+    return `${categoryText}accent wall installation${locationText} - ${title} by Accent Walls Pro`
   }
 
   // Generate detailed image caption for screen readers
   const generateCaption = () => {
     const categoryText = category ? `${category.charAt(0).toUpperCase() + category.slice(1)} ` : ""
-    return `${categoryText}инсталляция в ${location} - Профессиональные услуги акцентных стен`
+    return `${categoryText}installation in ${location} - Professional accent wall services`
   }
 
   // Improved fallback image logic with category-specific placeholders
@@ -71,7 +71,7 @@ export function ProjectCard({ title, description, imageSrc, category, location, 
   }
 
   return (
-    <Link href={href} className="block h-full group" aria-label={`Просмотреть детали для ${title}`}>
+    <Link href={href} className="block h-full group" aria-label={`View details for ${title}`}>
       <article className="overflow-hidden rounded-lg shadow-sm border border-gray-100 bg-white transition-all duration-300 hover:shadow-lg hover:-translate-y-1 h-full flex flex-col">
         <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden bg-muted">
           <OptimizedImage
@@ -104,7 +104,7 @@ export function ProjectCard({ title, description, imageSrc, category, location, 
             )}
             <div className="flex justify-between items-center">
               <span className="inline-flex items-center text-xs md:text-sm font-medium text-white group-hover:underline">
-                Просмотреть проект{" "}
+                View Project{" "}
                 <ArrowRight className="ml-1 h-3 w-3 md:h-4 md:w-4 transition-transform group-hover:translate-x-1" />
               </span>
             </div>
