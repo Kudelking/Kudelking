@@ -62,7 +62,7 @@ export default function ThankYouPage() {
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="h-5 w-5" />
-                <span>info@accentwallspro.com</span>
+                <span>builddogllc@gmail.com</span>
               </div>
             </div>
           </div>
