@@ -31,7 +31,7 @@ const serviceCategories = [
     id: "board-and-batten",
     title: "Board & Batten",
     description: "Traditional full wall and half wall designs that add dimension and character to your space.",
-    image: "/board-and-batten-shelf.png",
+    image: "/images/services/board-batten/elegant-dining-room.jpg",
     link: "/services/board-and-batten",
     variants: [
       {
@@ -50,7 +50,7 @@ const serviceCategories = [
     id: "roman-plaster",
     title: "Roman Plaster",
     description: "Luxurious, timeless finishes with depth and texture inspired by ancient techniques.",
-    image: "/images/services/roman-plaster/luxury-living-room.png",
+    image: "/images/services/roman-plaster/luxury-bedroom.jpg",
     link: "/services/roman-plaster",
     variants: [
       {
@@ -74,7 +74,7 @@ const serviceCategories = [
     id: "limewash-walls",
     title: "Limewash Walls",
     description: "Smooth finish and rustic textured styles for a unique, sophisticated look.",
-    image: "/soft-beige-limewash.png",
+    image: "/images/services/limewash/mediterranean-living-room.jpg",
     link: "/services/limewash-walls",
     variants: [
       {
@@ -93,7 +93,7 @@ const serviceCategories = [
     id: "brick-walls",
     title: "Brick Interior Walls",
     description: "Real brick installation and faux brick panel options for industrial charm.",
-    image: "/images/portfolio/brick-accent-wall.png",
+    image: "/images/services/brick/industrial-loft.jpg",
     link: "/services/brick-walls",
     variants: [
       {
@@ -108,7 +108,7 @@ const serviceCategories = [
     id: "fireplace-buildouts",
     title: "Fireplace Build-Outs",
     description: "Slim line designs, floor-to-ceiling fireplaces, and integrated shelving.",
-    image: "/modern-fireplace-buildout.png",
+    image: "/images/services/fireplace/modern-stone-fireplace.jpg",
     link: "/services/fireplace-buildouts",
     variants: [
       {
@@ -127,7 +127,7 @@ const serviceCategories = [
     id: "media-walls",
     title: "TV Media Walls",
     description: "Floating media units and built-in surround systems for entertainment spaces.",
-    image: "/tv-media-wall.png",
+    image: "/images/services/media-walls/floating-tv-wall.jpg",
     link: "/services/media-walls",
     variants: [
       { name: "Floating Media Walls", link: "/services/media-walls/floating", image: "/floating-tv-media-wall.png" },
@@ -142,7 +142,7 @@ const serviceCategories = [
     id: "decorative-ceilings",
     title: "Decorative Ceilings",
     description: "Tray ceilings, coffered ceilings, and exposed beams for overhead interest.",
-    image: "/images/portfolio/modern-board-batten-entry.png",
+    image: "/images/services/ceilings/coffered-ceiling.jpg",
     link: "/services/decorative-ceilings",
     variants: [],
   },
@@ -150,7 +150,7 @@ const serviceCategories = [
     id: "wallpaper-installation",
     title: "Wallpaper Installation",
     description: "Custom feature wall wallpaper and full room wallpaper installations.",
-    image: "/luxury-wallpaper-feature-wall.png",
+    image: "/images/services/wallpaper/luxury-feature-wall.jpg",
     link: "/services/wallpaper-installation",
     variants: [
       {
@@ -169,7 +169,7 @@ const serviceCategories = [
     id: "custom-projects",
     title: "Custom Projects",
     description: "Have a unique idea? We can bring your custom accent wall vision to life.",
-    image: "/images/portfolio/restaurant-feature-wall.png",
+    image: "/images/services/custom/restaurant-feature-wall.jpg",
     link: "/services/custom-projects",
     variants: [],
   },
@@ -211,7 +211,7 @@ export default function ServicesPage() {
                   <div className="relative h-64 overflow-hidden">
                     <Image
                       src={category.image || "/placeholder.svg"}
-                      alt={category.title}
+                      alt={`${category.title} - Professional installation in DC, Maryland & Virginia`}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />

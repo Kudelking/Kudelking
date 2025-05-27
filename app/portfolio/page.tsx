@@ -3,136 +3,269 @@ import { ChevronRight } from "lucide-react"
 import { ProjectGallery } from "@/components/project-gallery"
 
 export const metadata = {
-  title: "Premium Accent Wall Portfolio | 100+ Completed Projects | Accent Walls Pro",
+  title: "Портфолио премиальных акцентных стен | 100+ проектов | Accent Walls Pro",
   description:
-    "Browse our extensive portfolio of accent walls, board & batten, Roman plaster, and wood slat installations in Washington DC, Maryland, and Virginia. See real customer transformations.",
+    "Просмотрите наше обширное портфолио акцентных стен, Board & Batten, римской штукатурки и деревянных реек в Вашингтоне, Мэриленде и Вирджинии. Реальные преобразования клиентов.",
   keywords:
-    "accent wall portfolio, board and batten gallery, Roman plaster projects, wood slat walls, fireplace buildouts, media walls, interior design portfolio, wall transformation, custom millwork",
+    "портфолио акцентных стен, галерея board and batten, проекты римской штукатурки, деревянные рейки, облицовка каминов, медиа стены, портфолио дизайна интерьера",
   openGraph: {
-    title: "Premium Accent Wall Portfolio | 100+ Completed Projects",
-    description:
-      "Browse our extensive portfolio of accent walls, board & batten, Roman plaster installations in DC, MD, VA",
+    title: "Портфолио премиальных акцентных стен | 100+ завершенных проектов",
+    description: "Просмотрите наше обширное портфолио акцентных стен, board & batten, римской штукатурки в DC, MD, VA",
     images: [
       {
-        url: "/images/portfolio/tv-media-wall-modern.png",
+        url: "/floating-tv-media-wall.png",
         width: 1200,
         height: 630,
-        alt: "Accent Walls Pro Portfolio - Premium Wall Installations",
+        alt: "Портфолио Accent Walls Pro - Премиальные настенные инсталляции",
       },
     ],
     type: "website",
   },
 }
 
-// Optimized project data with correct images matching project types
+// ИСПРАВЛЕННЫЕ ПРОЕКТЫ с правильными путями к существующим изображениям
 const projects = [
+  // TV WALLS / MEDIA WALLS - Используем существующие изображения ТВ стен
   {
-    id: "floating-tv-media-wall",
-    title: "Floating TV Media Wall with LED Backlighting",
+    id: "floating-tv-modern",
+    title: "Парящая ТВ стена с LED подсветкой",
     location: "Arlington, VA",
-    image: "/images/portfolio/tv-media-wall-modern.png",
-    category: "media wall",
+    image: "/floating-tv-media-wall.png",
+    category: "tv walls",
     description:
-      "Modern floating TV media wall featuring clean lines, hidden cable management, and integrated LED backlighting. Perfect entertainment solution for contemporary living spaces.",
+      "Современная парящая ТВ стена с чистыми линиями, скрытым кабель-менеджментом и интегрированной LED подсветкой для элегантного развлекательного решения.",
   },
   {
-    id: "elegant-board-batten-dining",
-    title: "Classic Board & Batten Dining Room",
+    id: "builtin-tv-storage",
+    title: "Встроенная ТВ стена с кастомным хранением",
+    location: "Rockville, MD",
+    image: "/tv-media-wall.png",
+    category: "tv walls",
+    description:
+      "Кастомная встроенная ТВ стена с интегрированными шкафами и полками, максимизирующая функциональность при сохранении чистого внешнего вида.",
+  },
+  {
+    id: "tv-wall-entertainment",
+    title: "Развлекательный центр с ТВ стеной",
+    location: "Bethesda, MD",
+    image: "/built-in-entertainment-center.png",
+    category: "tv walls",
+    description:
+      "Полный развлекательный центр с ТВ стеной, включающий встроенные полки и скрытый кабель-менеджмент для бесшовной интеграции.",
+  },
+
+  // BOARD & BATTEN - Используем существующие изображения board and batten
+  {
+    id: "board-batten-white-dining",
+    title: "Классический белый Board & Batten в столовой",
     location: "Silver Spring, MD",
-    image: "/images/portfolio/board-batten-dining-room.png",
+    image: "/white-board-and-batten-dining-room.png",
     category: "board & batten",
     description:
-      "Elegant white board and batten wainscoting in formal dining room. Classic molding and proportions create timeless architectural interest and sophistication.",
+      "Элегантная белая обшивка board and batten в формальной столовой с классическими пропорциями и вневременной привлекательностью.",
   },
   {
-    id: "luxury-fireplace-buildout",
-    title: "Luxury Stone Fireplace Build-Out",
-    location: "Potomac, MD",
-    image: "/images/portfolio/fireplace-buildout-stone.png",
-    category: "fireplace",
+    id: "board-batten-full-wall",
+    title: "Полная стена Board & Batten",
+    location: "Chevy Chase, MD",
+    image: "/full-wall-board-and-batten.png",
+    category: "board & batten",
     description:
-      "Floor-to-ceiling stone fireplace surround with built-in shelving. Natural stone veneer and custom millwork create a stunning focal point for family gatherings.",
+      "Полная стена board and batten инсталляция, создающая драматические архитектурные детали и визуальный интерес в этой элегантной прихожей.",
   },
   {
-    id: "artisan-limewash-walls",
-    title: "Artisan Textured Limewash Walls",
+    id: "board-batten-elegant",
+    title: "Элегантный Board & Batten",
+    location: "Gaithersburg, MD",
+    image: "/elegant-board-and-batten.png",
+    category: "board & batten",
+    description:
+      "Изысканная board and batten инсталляция с классическими пропорциями, добавляющая архитектурную элегантность в это жилое пространство.",
+  },
+
+  // FIREPLACE BUILDOUTS - Используем существующие изображения каминов
+  {
+    id: "fireplace-modern-buildout",
+    title: "Современная облицовка камина",
+    location: "Potomac, MD",
+    image: "/modern-fireplace-buildout.png",
+    category: "fireplaces",
+    description:
+      "Современная облицовка камина от пола до потолка с гладким линейным газовым камином в качестве центрального элемента.",
+  },
+  {
+    id: "fireplace-wood-stone",
+    title: "Камин с деревом и камнем",
+    location: "McLean, VA",
+    image: "/modern-fireplace-wood-stone.png",
+    category: "fireplaces",
+    description:
+      "Современный дизайн камина, сочетающий натуральное дерево и каменные элементы для теплого, изысканного центрального элемента гостиной.",
+  },
+  {
+    id: "fireplace-slim-modern",
+    title: "Современный тонкий камин",
     location: "Alexandria, VA",
-    image: "/images/portfolio/limewash-textured-wall.png",
+    image: "/modern-slim-fireplace.png",
+    category: "fireplaces",
+    description:
+      "Элегантный тонкий камин с минималистским дизайном, создающий изысканное современное заявление в этом жилом пространстве.",
+  },
+
+  // LIMEWASH - Используем существующие изображения лаймвош
+  {
+    id: "limewash-beige-soft",
+    title: "Мягкий бежевый лаймвош",
+    location: "Reston, VA",
+    image: "/soft-beige-limewash.png",
     category: "limewash",
     description:
-      "Hand-applied textured limewash accent wall in warm beige tones. Traditional European technique creates unique patterns and old-world charm in this historic home.",
+      "Элегантные мягкие бежевые стены лаймвош создают спокойную, изысканную атмосферу в этой роскошной гостиной.",
   },
   {
-    id: "vertical-wood-slat-bedroom",
-    title: "Vertical Wood Slat Bedroom Feature",
-    location: "Bethesda, MD",
-    image: "/images/portfolio/wood-slat-vertical-bedroom.png",
-    category: "wood slat",
+    id: "limewash-smooth-wall",
+    title: "Гладкая стена лаймвош",
+    location: "Great Falls, VA",
+    image: "/smooth-limewash-wall.png",
+    category: "limewash",
     description:
-      "Warm walnut wood slat accent wall behind bed creating a cozy focal point. Natural wood grain adds texture and warmth to this modern bedroom design.",
+      "Спокойные стены лаймвош с гладкой отделкой, создающие успокаивающую атмосферу спа в этом минималистском дизайне.",
   },
   {
-    id: "roman-plaster-luxury-living",
-    title: "Smooth Roman Plaster Living Room",
+    id: "limewash-rustic",
+    title: "Рустикальный лаймвош",
+    location: "Fairfax, VA",
+    image: "/rustic-limewash-wall.png",
+    category: "limewash",
+    description:
+      "Текстурированная рустикальная стена лаймвош, привносящая аутентичный средиземноморский характер в это элегантное пространство.",
+  },
+
+  // WOOD SLAT WALLS - Используем существующие изображения деревянных реек
+  {
+    id: "wood-slat-bedroom",
+    title: "Деревянные рейки в спальне",
+    location: "Vienna, VA",
+    image: "/bedroom-wood-slat-wall.png",
+    category: "wood slats",
+    description:
+      "Теплая акцентная стена из деревянных реек, создающая уютный фокус за кроватью в этой современной спальне.",
+  },
+  {
+    id: "wood-slat-modern",
+    title: "Современная стена из деревянных реек",
+    location: "Tysons, VA",
+    image: "/modern-wood-slat-wall.png",
+    category: "wood slats",
+    description:
+      "Современная стена из деревянных реек, добавляющая естественную текстуру и тепло в этот современный дизайн интерьера.",
+  },
+  {
+    id: "wood-slat-living",
+    title: "Деревянные рейки в гостиной",
+    location: "Herndon, VA",
+    image: "/wood-slat-living-room.png",
+    category: "wood slats",
+    description:
+      "Элегантная стена из деревянных реек в гостиной, создающая драматическую атмосферу и архитектурный интерес.",
+  },
+
+  // ROMAN PLASTER - Используем существующие изображения римской штукатурки
+  {
+    id: "roman-plaster-luxury-bedroom",
+    title: "Роскошная римская штукатурка в спальне",
     location: "Chevy Chase, MD",
-    image: "/images/portfolio/roman-plaster-luxury-living.png",
+    image: "/luxury-roman-plaster-bedroom.png",
     category: "roman plaster",
     description:
-      "Sophisticated smooth Roman plaster accent wall in neutral tones. Hand-applied Venetian plaster technique creates depth and elegance in this luxury living space.",
+      "Изысканная римская штукатурка акцентная стена с тонкими вариациями, создающая элегантную глубину в этом роскошном жилом пространстве.",
   },
   {
-    id: "geometric-wood-office",
-    title: "Geometric Wood Pattern Office Wall",
+    id: "roman-plaster-home-office",
+    title: "Римская штукатурка в домашнем офисе",
+    location: "Potomac, MD",
+    image: "/home-office-roman-plaster.png",
+    category: "roman plaster",
+    description:
+      "Профессиональная римская штукатурка в домашнем офисе, создающая изысканную рабочую атмосферу с европейским шармом.",
+  },
+
+  // ACCENT WALLS - Используем существующие изображения акцентных стен
+  {
+    id: "accent-wall-geometric",
+    title: "Геометрическая акцентная стена",
     location: "Washington, DC",
-    image: "/images/portfolio/geometric-wood-office.png",
-    category: "geometric",
+    image: "/geometric-accent-wall.png",
+    category: "accent walls",
     description:
-      "Bold geometric wood pattern accent wall with angular design elements. Creates an inspiring and dynamic backdrop for this modern home office workspace.",
+      "Смелая геометрическая акцентная стена с угловыми элементами дизайна, создающая вдохновляющий фон для этого современного пространства.",
   },
   {
-    id: "restored-brick-accent",
-    title: "Restored Brick Accent Wall",
+    id: "accent-wall-project",
+    title: "Кастомная акцентная стена",
+    location: "Arlington, VA",
+    image: "/accent-wall-project.png",
+    category: "accent walls",
+    description:
+      "Уникальная кастомная акцентная стена, разработанная специально для этого пространства с учетом индивидуальных предпочтений клиента.",
+  },
+
+  // BRICK WALLS - Создаем проекты с placeholder изображениями
+  {
+    id: "brick-wall-exposed",
+    title: "Открытая кирпичная стена",
     location: "Frederick, MD",
-    image: "/images/portfolio/brick-accent-restored.png",
-    category: "brick",
+    image: "/placeholder.svg?height=400&width=600&query=exposed+brick+accent+wall+loft+style",
+    category: "brick walls",
     description:
-      "Beautifully restored brick accent wall with German smear technique. Celebrates the historic character while adding contemporary style to this renovated home.",
+      "Восстановленная открытая кирпичная акцентная стена с индустриальным освещением, празднующая исторический характер этого преобразованного лофт пространства.",
   },
   {
-    id: "builtin-media-storage",
-    title: "Built-in Media Wall with Storage",
-    location: "Rockville, MD",
-    image: "/images/portfolio/media-wall-storage-builtin.png",
-    category: "media wall",
+    id: "brick-wall-painted",
+    title: "Окрашенная кирпичная стена",
+    location: "Annapolis, MD",
+    image: "/placeholder.svg?height=400&width=600&query=painted+white+brick+wall+farmhouse+style",
+    category: "brick walls",
     description:
-      "Custom built-in media wall with integrated storage solutions and ambient lighting. Maximizes functionality while maintaining clean, organized appearance.",
+      "Классическая кирпичная стена, окрашенная в четкий белый цвет для гостиной в фермерском стиле, сохраняя текстуру при осветлении пространства.",
+  },
+
+  // WALLPAPER - Используем существующие изображения обоев
+  {
+    id: "wallpaper-luxury-feature",
+    title: "Роскошные обои",
+    location: "Cabin John, MD",
+    image: "/luxury-wallpaper-feature-wall.png",
+    category: "wallpaper",
+    description: "Изысканные обои, создающие элегантный фокус в этом формальном пространстве.",
   },
   {
-    id: "board-batten-bathroom",
-    title: "Classic Board & Batten Bathroom",
-    location: "Gaithersburg, MD",
-    image: "/images/portfolio/board-batten-bathroom-white.png",
-    category: "board & batten",
+    id: "wallpaper-bedroom",
+    title: "Обои в спальне",
+    location: "Falls Church, VA",
+    image: "/bedroom-wallpaper-installation.png",
+    category: "wallpaper",
+    description: "Элегантная установка обоев в спальне, создающая уютную и стильную атмосферу для отдыха.",
+  },
+
+  // CEILING DECORATION - Создаем проекты с placeholder изображениями
+  {
+    id: "ceiling-coffered",
+    title: "Кессонный потолок",
+    location: "Fairfax, VA",
+    image: "/placeholder.svg?height=400&width=600&query=coffered+ceiling+home+office+elegant",
+    category: "ceilings",
     description:
-      "Crisp white board and batten wainscoting in elegant bathroom renovation. Classic design adds timeless charm and sophistication to any bathroom space.",
+      "Кастомный кессонный потолок с детальной лепниной, добавляющий архитектурную изысканность и визуальную высоту в этот элегантный офис.",
   },
   {
-    id: "horizontal-wood-slat-living",
-    title: "Horizontal Wood Slat Living Room",
-    location: "Vienna, VA",
-    image: "/images/portfolio/wood-slat-horizontal-living.png",
-    category: "wood slat",
+    id: "ceiling-tray",
+    title: "Подвесной потолок",
+    location: "Herndon, VA",
+    image: "/placeholder.svg?height=400&width=600&query=tray+ceiling+master+bedroom+crown+molding",
+    category: "ceilings",
     description:
-      "Horizontal wood slat accent wall in natural oak finish. Clean lines and warm wood tones create a serene, contemporary atmosphere in this living space.",
-  },
-  {
-    id: "modern-linear-fireplace",
-    title: "Modern Linear Fireplace Feature",
-    location: "McLean, VA",
-    image: "/images/portfolio/fireplace-modern-linear.png",
-    category: "fireplace",
-    description:
-      "Sleek linear fireplace with modern stone surround and minimalist design. Creates a sophisticated focal point perfect for contemporary home interiors.",
+      "Элегантный подвесной потолок с карнизом и встроенным освещением, создающий роскошный фокус в этой главной спальне.",
   },
 ]
 
@@ -146,19 +279,19 @@ export default function PortfolioPage() {
           </Link>
           <nav className="hidden md:flex items-center gap-6">
             <Link href="/" className="text-sm font-medium transition-colors hover:text-primary">
-              Home
+              Главная
             </Link>
             <Link href="/services" className="text-sm font-medium transition-colors hover:text-primary">
-              Services
+              Услуги
             </Link>
             <Link href="/portfolio" className="text-sm font-medium transition-colors hover:text-primary">
               Portfolio
             </Link>
             <Link href="/about" className="text-sm font-medium transition-colors hover:text-primary">
-              About
+              О нас
             </Link>
             <Link href="/contact" className="text-sm font-medium transition-colors hover:text-primary">
-              Contact
+              Контакты
             </Link>
           </nav>
         </div>
@@ -166,33 +299,35 @@ export default function PortfolioPage() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative py-16 md:py-24 bg-muted/30 overflow-hidden">
-          <div className="container">
+        <section className="relative py-12 md:py-16 lg:py-24 bg-muted/30 overflow-hidden">
+          <div className="container px-4 md:px-6">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-6">
-                Premium Accent Wall Portfolio
+              <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 md:mb-6">
+                Портфолио премиальных акцентных стен
               </h1>
-              <p className="text-lg text-muted-foreground mb-8">
-                Explore our collection of 100+ premium accent wall installations throughout Washington DC, Maryland, and
-                Virginia. From elegant board & batten to luxurious Roman plaster, see how we transform spaces.
+              <p className="text-base md:text-lg text-muted-foreground mb-6 md:mb-8 px-4">
+                Исследуйте нашу коллекцию из 100+ премиальных инсталляций акцентных стен по всему Вашингтону, Мэриленду
+                и Вирджинии. Каждая категория демонстрирует нашу специализированную экспертизу в преобразовании
+                пространств.
               </p>
               <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
                 <Link href="/" className="hover:text-foreground transition-colors">
-                  Home
+                  Главная
                 </Link>
                 <ChevronRight className="h-4 w-4" />
-                <span>Portfolio</span>
+                <span>Портфолио</span>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="py-16 md:py-24">
-          <div className="container">
-            <div className="mb-12 text-center">
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">Featured Project Categories</h2>
-              <p className="text-base md:text-lg text-muted-foreground mb-8">
-                Browse our work by category to find inspiration for your next project
+        <section className="py-12 md:py-16 lg:py-24">
+          <div className="container px-4 md:px-6">
+            <div className="mb-8 md:mb-12 text-center">
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4">Просмотр по специализации</h2>
+              <p className="text-sm md:text-base lg:text-lg text-muted-foreground mb-6 md:mb-8 px-4">
+                Каждая категория представляет уникальные проекты, демонстрирующие нашу экспертизу в этой конкретной
+                области
               </p>
             </div>
             <ProjectGallery projects={projects} />
@@ -200,61 +335,65 @@ export default function PortfolioPage() {
         </section>
 
         {/* Portfolio Stats Section */}
-        <section className="py-12 md:py-16 bg-primary/5">
-          <div className="container">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
-              <div>
-                <div className="text-2xl md:text-4xl font-bold text-primary mb-2">100+</div>
-                <div className="text-sm md:text-base text-muted-foreground">Projects Completed</div>
+        <section className="py-8 md:py-12 lg:py-16 bg-primary/5">
+          <div className="container px-4 md:px-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8 text-center">
+              <div className="p-4">
+                <div className="text-xl md:text-3xl lg:text-4xl font-bold text-primary mb-1 md:mb-2">100+</div>
+                <div className="text-xs md:text-sm lg:text-base text-muted-foreground">Уникальных проектов</div>
               </div>
-              <div>
-                <div className="text-2xl md:text-4xl font-bold text-primary mb-2">8</div>
-                <div className="text-sm md:text-base text-muted-foreground">Service Categories</div>
+              <div className="p-4">
+                <div className="text-xl md:text-3xl lg:text-4xl font-bold text-primary mb-1 md:mb-2">10</div>
+                <div className="text-xs md:text-sm lg:text-base text-muted-foreground">
+                  Специализированных категорий
+                </div>
               </div>
-              <div>
-                <div className="text-2xl md:text-4xl font-bold text-primary mb-2">50+</div>
-                <div className="text-sm md:text-base text-muted-foreground">Cities Served</div>
+              <div className="p-4">
+                <div className="text-xl md:text-3xl lg:text-4xl font-bold text-primary mb-1 md:mb-2">50+</div>
+                <div className="text-xs md:text-sm lg:text-base text-muted-foreground">Обслуживаемых городов</div>
               </div>
-              <div>
-                <div className="text-2xl md:text-4xl font-bold text-primary mb-2">5★</div>
-                <div className="text-sm md:text-base text-muted-foreground">Average Rating</div>
+              <div className="p-4">
+                <div className="text-xl md:text-3xl lg:text-4xl font-bold text-primary mb-1 md:mb-2">5★</div>
+                <div className="text-xs md:text-sm lg:text-base text-muted-foreground">Средний рейтинг</div>
               </div>
             </div>
           </div>
         </section>
 
         {/* SEO Content Section */}
-        <section className="py-12 md:py-16 bg-muted/30">
-          <div className="container">
+        <section className="py-8 md:py-12 lg:py-16 bg-muted/30">
+          <div className="container px-4 md:px-6">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center">Why Choose Our Accent Wall Services?</h2>
-              <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-                <div>
-                  <h3 className="text-lg md:text-xl font-semibold mb-3">Expert Craftsmanship</h3>
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 text-center">
+                Наши портфолио специализации
+              </h2>
+              <div className="grid md:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
+                <div className="p-4">
+                  <h3 className="text-base md:text-lg lg:text-xl font-semibold mb-2 md:mb-3">ТВ и медиа стены</h3>
                   <p className="text-sm md:text-base text-muted-foreground">
-                    Our skilled artisans bring years of experience in premium wall installations, ensuring every project
-                    meets the highest standards of quality and attention to detail.
+                    Кастомные развлекательные решения со скрытым кабель-менеджментом, встроенным хранением и
+                    современными парящими дизайнами.
                   </p>
                 </div>
-                <div>
-                  <h3 className="text-lg md:text-xl font-semibold mb-3">Local Expertise</h3>
+                <div className="p-4">
+                  <h3 className="text-base md:text-lg lg:text-xl font-semibold mb-2 md:mb-3">Board & Batten</h3>
                   <p className="text-sm md:text-base text-muted-foreground">
-                    Serving Washington DC, Maryland, and Virginia, we understand local design preferences and building
-                    requirements for seamless project completion.
+                    Классическая обшивка и полностенные инсталляции в столовых, прихожих и спальнях с вневременной
+                    привлекательностью.
                   </p>
                 </div>
-                <div>
-                  <h3 className="text-lg md:text-xl font-semibold mb-3">Premium Materials</h3>
+                <div className="p-4">
+                  <h3 className="text-base md:text-lg lg:text-xl font-semibold mb-2 md:mb-3">Облицовка каминов</h3>
                   <p className="text-sm md:text-base text-muted-foreground">
-                    We source only the finest materials for our installations, from sustainably harvested wood to
-                    authentic Italian plasters, ensuring lasting beauty.
+                    Каменные, кирпичные и плиточные облицовки каминов от традиционных каминных полок до современных
+                    линейных дизайнов.
                   </p>
                 </div>
-                <div>
-                  <h3 className="text-lg md:text-xl font-semibold mb-3">Custom Solutions</h3>
+                <div className="p-4">
+                  <h3 className="text-base md:text-lg lg:text-xl font-semibold mb-2 md:mb-3">Артизанские покрытия</h3>
                   <p className="text-sm md:text-base text-muted-foreground">
-                    Every project is tailored to your unique space and style preferences, creating one-of-a-kind accent
-                    walls that perfectly complement your home.
+                    Ручная нанесенная лаймвош, римская штукатурка и специальные покрытия, привносящие европейское
+                    мастерство в ваш дом.
                   </p>
                 </div>
               </div>
@@ -263,10 +402,10 @@ export default function PortfolioPage() {
         </section>
       </main>
 
-      <footer className="bg-muted py-6 md:py-8 border-t">
-        <div className="container text-center">
+      <footer className="bg-muted py-4 md:py-6 lg:py-8 border-t">
+        <div className="container px-4 md:px-6 text-center">
           <p className="text-xs md:text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Accent Walls Pro. All rights reserved.
+            © {new Date().getFullYear()} Accent Walls Pro. Все права защищены.
           </p>
         </div>
       </footer>

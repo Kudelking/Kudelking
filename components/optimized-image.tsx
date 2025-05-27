@@ -10,11 +10,10 @@ interface OptimizedImageProps {
   width?: number
   height?: number
   className?: string
-  priority?: boolean
   objectFit?: "cover" | "contain" | "fill" | "none" | "scale-down"
-  sizes?: string
-  quality?: number
   fallbackSrc?: string
+  sizes?: string
+  priority?: boolean
 }
 
 export function OptimizedImage({
@@ -23,91 +22,67 @@ export function OptimizedImage({
   fill = false,
   width,
   height,
-  className,
-  priority = false,
+  className = "",
   objectFit = "cover",
-  sizes,
-  quality = 85,
   fallbackSrc,
+  sizes,
+  priority = false,
 }: OptimizedImageProps) {
-  const [imageSrc, setImageSrc] = useState<string>(src)
+  const [imageSrc, setImageSrc] = useState(src)
   const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState(false)
+  const [hasError, setHasError] = useState(false)
 
   const handleError = () => {
-    console.warn(`Image failed to load: ${src}`)
-    setError(true)
+    setHasError(true)
     setIsLoading(false)
-
     if (fallbackSrc && imageSrc !== fallbackSrc) {
       setImageSrc(fallbackSrc)
-      setError(false)
+      setHasError(false)
       setIsLoading(true)
-      return
     }
-
-    // Final fallback to placeholder
-    setImageSrc(`/placeholder.svg?height=${height || 400}&width=${width || 600}&query=${encodeURIComponent(alt)}`)
   }
 
   const handleLoad = () => {
     setIsLoading(false)
-    setError(false)
+    setHasError(false)
   }
 
-  const objectFitClass =
-    objectFit === "cover"
-      ? "object-cover"
-      : objectFit === "contain"
-        ? "object-contain"
-        : objectFit === "fill"
-          ? "object-fill"
-          : objectFit === "none"
-            ? "object-none"
-            : "object-scale-down"
-
-  if (fill) {
-    return (
-      <div className={`relative ${className || "w-full h-full"}`}>
-        <Image
-          src={imageSrc || "/placeholder.svg"}
-          alt={alt}
-          fill
-          className={`${objectFitClass} ${isLoading ? "opacity-0" : "opacity-100"} transition-opacity duration-300`}
-          priority={priority}
-          onError={handleError}
-          onLoad={handleLoad}
-          sizes={sizes || "(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"}
-          quality={quality}
-        />
-        {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-100 animate-pulse">
-            <div className="w-6 h-6 md:w-8 md:h-8 border-2 md:border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-          </div>
-        )}
-      </div>
-    )
+  const imageProps = {
+    src: imageSrc,
+    alt,
+    onError: handleError,
+    onLoad: handleLoad,
+    className: `${className} transition-opacity duration-300 ${isLoading ? "opacity-0" : "opacity-100"}`,
+    style: { objectFit },
+    sizes,
+    priority,
   }
 
   return (
-    <div className={`relative ${className || ""}`}>
-      <Image
-        src={imageSrc || "/placeholder.svg"}
-        alt={alt}
-        width={width || 600}
-        height={height || 400}
-        className={`${objectFitClass} ${isLoading ? "opacity-0" : "opacity-100"} transition-opacity duration-300`}
-        priority={priority}
-        onError={handleError}
-        onLoad={handleLoad}
-        sizes={sizes || "(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"}
-        quality={quality}
-      />
+    <div className="relative w-full h-full bg-muted">
+      {/* Loading placeholder */}
       {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-100 animate-pulse">
-          <div className="w-6 h-6 md:w-8 md:h-8 border-2 md:border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+        <div className="absolute inset-0 bg-muted animate-pulse flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
         </div>
       )}
+
+      {/* Error state */}
+      {hasError && !fallbackSrc && (
+        <div className="absolute inset-0 bg-muted flex items-center justify-center">
+          <div className="text-center text-muted-foreground p-4">
+            <div className="w-12 h-12 mx-auto mb-2 opacity-50">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" />
+              </svg>
+            </div>
+            <p className="text-xs">Изображение недоступно</p>
+          </div>
+        </div>
+      )}
+
+      {/* Actual image */}
+      {fill ? <Image {...imageProps} fill /> : <Image {...imageProps} width={width || 600} height={height || 400} />}
     </div>
   )
 }
