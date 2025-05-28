@@ -2,9 +2,11 @@
 
 import { useState } from "react"
 import Image from "next/image"
+import { MapPin } from "lucide-react"
 
 export function ServiceAreaMap() {
   const [activeArea, setActiveArea] = useState<string | null>(null)
+  const [imageError, setImageError] = useState(false)
 
   const serviceAreas = [
     { id: "dc", name: "Washington DC", description: "Full service coverage in all DC neighborhoods" },
@@ -30,14 +32,25 @@ export function ServiceAreaMap() {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
       <div className="relative h-64 w-full">
-        <Image
-          src="/images/dmv-map.png"
-          alt="DMV Service Area Map - Washington DC, Maryland, Virginia"
-          fill
-          className="object-cover"
-          priority
-          sizes="(max-width: 768px) 100vw, 50vw"
-        />
+        {imageError ? (
+          <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
+            <div className="text-center p-4">
+              <MapPin className="h-12 w-12 mx-auto mb-2 text-primary opacity-50" />
+              <h3 className="text-lg font-medium">DMV Service Area</h3>
+              <p className="text-sm text-muted-foreground">Washington DC, Maryland, and Virginia</p>
+            </div>
+          </div>
+        ) : (
+          <Image
+            src="/images/dmv-map.png"
+            alt="DMV Service Area Map - Washington DC, Maryland, Virginia"
+            fill
+            className="object-cover"
+            priority
+            sizes="(max-width: 768px) 100vw, 50vw"
+            onError={() => setImageError(true)}
+          />
+        )}
         <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
           <h3 className="text-white text-xl font-bold shadow-text">DMV Service Area</h3>
         </div>

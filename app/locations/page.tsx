@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ProjectCard } from "@/components/project-card"
+import { ServiceAreaMap } from "@/components/service-area-map"
 
 export const metadata = {
   title: "Accent Wall Installation in Montgomery County, DC & Maryland | Service Areas",
@@ -95,13 +96,8 @@ export default function LocationsPage() {
 
               <TabsContent value="montgomery">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                  <div className="relative aspect-video">
-                    <Image
-                      src="/placeholder.svg?key=fuas2"
-                      alt="Accent Walls in Montgomery County"
-                      fill
-                      className="object-cover rounded-lg"
-                    />
+                  <div className="relative">
+                    <ServiceAreaMap />
                   </div>
                   <div>
                     <h3 className="text-2xl font-bold mb-4">Montgomery County, MD</h3>
@@ -651,13 +647,8 @@ export default function LocationsPage() {
 
               <TabsContent value="dc">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                  <div className="relative aspect-video">
-                    <Image
-                      src="/placeholder.svg?height=400&width=600&query=washington dc townhouse with modern accent wall"
-                      alt="Accent Walls in Washington DC"
-                      fill
-                      className="object-cover rounded-lg"
-                    />
+                  <div className="relative">
+                    <ServiceAreaMap />
                   </div>
                   <div>
                     <h3 className="text-2xl font-bold mb-4">District of Columbia</h3>

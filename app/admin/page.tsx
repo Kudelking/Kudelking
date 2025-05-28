@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { UniversalImageManager } from "@/components/universal-image-manager"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Images, FolderOpen, Settings, BarChart3, Download, Upload, RefreshCw, Save } from "lucide-react"
+import { UniversalImageReplacer } from "@/components/universal-image-replacer"
 
 export default function AdminPage() {
   return (
@@ -19,6 +20,10 @@ export default function AdminPage() {
           <TabsTrigger value="images" className="flex items-center gap-2">
             <Images className="h-4 w-4" />
             Все изображения
+          </TabsTrigger>
+          <TabsTrigger value="replacer" className="flex items-center gap-2">
+            <RefreshCw className="h-4 w-4" />
+            Замена изображений
           </TabsTrigger>
           <TabsTrigger value="portfolio" className="flex items-center gap-2">
             <FolderOpen className="h-4 w-4" />
@@ -36,6 +41,10 @@ export default function AdminPage() {
 
         <TabsContent value="images">
           <UniversalImageManager />
+        </TabsContent>
+
+        <TabsContent value="replacer">
+          <UniversalImageReplacer />
         </TabsContent>
 
         <TabsContent value="portfolio">
