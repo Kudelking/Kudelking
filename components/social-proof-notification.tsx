@@ -1,7 +1,16 @@
-"use client"
+// Отключаем компонент, чтобы он не показывался на сайте
+// Для этого изменим функцию SocialProofNotification, чтобы она возвращала null
+
+export function SocialProofNotification() {
+  // Просто возвращаем null, чтобы компонент не рендерился
+  return null
+
+  // Оригинальный код закомментирован ниже, чтобы его можно было восстановить при необходимости
+  /*
+  "use client"
 
 import { useState, useEffect } from "react"
-import { X } from "lucide-react"
+import { X } from 'lucide-react'
 
 // Sample data for notifications
 const notifications = [
@@ -72,4 +81,5 @@ export function SocialProofNotification() {
       </div>
     </div>
   )
+  */
 }
