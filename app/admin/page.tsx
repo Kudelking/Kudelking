@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { UniversalImageManager } from "@/components/universal-image-manager"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Images, FolderOpen, Settings, BarChart3, Download, Upload, RefreshCw, Save } from "lucide-react"
+import { Images, FolderOpen, Settings, BarChart3, Download, Upload, RefreshCw, Save, Link } from "lucide-react"
 import { UniversalImageReplacer } from "@/components/universal-image-replacer"
 
 export default function AdminPage() {
@@ -13,6 +13,42 @@ export default function AdminPage() {
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-2">Админ-панель сайта</h1>
         <p className="text-muted-foreground text-lg">Управление контентом и изображениями вашего сайта</p>
+      </div>
+
+      {/* Быстрые ссылки */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <Card>
+          <CardContent className="p-6 text-center">
+            <Link className="h-8 w-8 mx-auto mb-3 text-blue-600" />
+            <h3 className="font-semibold mb-2">Простая замена изображений</h3>
+            <p className="text-sm text-muted-foreground mb-4">Загрузите изображения в интернет и замените ссылки</p>
+            <Button asChild className="w-full">
+              <a href="/admin/simple-replace">Открыть</a>
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-6 text-center">
+            <FolderOpen className="h-8 w-8 mx-auto mb-3 text-green-600" />
+            <h3 className="font-semibold mb-2">Портфолио</h3>
+            <p className="text-sm text-muted-foreground mb-4">Управление проектами и изображениями портфолио</p>
+            <Button asChild variant="outline" className="w-full">
+              <a href="/admin/portfolio">Открыть</a>
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-6 text-center">
+            <Settings className="h-8 w-8 mx-auto mb-3 text-purple-600" />
+            <h3 className="font-semibold mb-2">Сервисы</h3>
+            <p className="text-sm text-muted-foreground mb-4">Редактирование страниц услуг</p>
+            <Button asChild variant="outline" className="w-full">
+              <a href="/admin/services">Открыть</a>
+            </Button>
+          </CardContent>
+        </Card>
       </div>
 
       <Tabs defaultValue="images" className="space-y-6">
@@ -28,10 +64,6 @@ export default function AdminPage() {
           <TabsTrigger value="portfolio" className="flex items-center gap-2">
             <FolderOpen className="h-4 w-4" />
             Портфолио
-          </TabsTrigger>
-          <TabsTrigger value="services" className="flex items-center gap-2">
-            <Settings className="h-4 w-4" />
-            Сервисы
           </TabsTrigger>
           <TabsTrigger value="analytics" className="flex items-center gap-2">
             <BarChart3 className="h-4 w-4" />
@@ -98,41 +130,6 @@ export default function AdminPage() {
                   <p className="text-sm text-muted-foreground">Активных категорий</p>
                 </CardContent>
               </Card>
-            </div>
-          </div>
-        </TabsContent>
-
-        <TabsContent value="services">
-          <div className="space-y-6">
-            <div className="flex justify-between items-center">
-              <div>
-                <h2 className="text-2xl font-bold">Управление сервисами</h2>
-                <p className="text-muted-foreground">Редактируйте изображения и контент сервисов</p>
-              </div>
-              <Button asChild>
-                <a href="/admin/services">Открыть редактор сервисов</a>
-              </Button>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {[
-                { name: "Акцентные стены", count: 12, icon: "🎨" },
-                { name: "Board & Batten", count: 8, icon: "📐" },
-                { name: "Римская штукатурка", count: 15, icon: "🏛️" },
-                { name: "Лаймвош", count: 6, icon: "🌿" },
-                { name: "Камины", count: 10, icon: "🔥" },
-                { name: "Медиа стены", count: 7, icon: "📺" },
-                { name: "Обои", count: 9, icon: "🖼️" },
-                { name: "Кирпичные стены", count: 5, icon: "🧱" },
-              ].map((service) => (
-                <Card key={service.name}>
-                  <CardContent className="p-4 text-center">
-                    <div className="text-2xl mb-2">{service.icon}</div>
-                    <h3 className="font-semibold text-sm mb-1">{service.name}</h3>
-                    <p className="text-xs text-muted-foreground">{service.count} изображений</p>
-                  </CardContent>
-                </Card>
-              ))}
             </div>
           </div>
         </TabsContent>
