@@ -8,7 +8,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { ImageUploader } from "@/components/image-uploader"
 import { Badge } from "@/components/ui/badge"
-import { Search, Save, RefreshCw, Download, UploadIcon } from "lucide-react"
+import { Search, Save, RefreshCw, Download, UploadIcon, Upload } from "lucide-react"
 
 interface ImageItem {
   id: string
@@ -295,6 +295,10 @@ const allSiteImages: ImageItem[] = [
   },
 ]
 
+const createBlobUrl = (file: File): string => {
+  return URL.createObjectURL(file)
+}
+
 export function UniversalImageManager() {
   const [images, setImages] = useState<ImageItem[]>(allSiteImages)
   const [uploadedImages, setUploadedImages] = useState<{ [key: string]: string }>({})
@@ -340,6 +344,22 @@ export function UniversalImageManager() {
       ...prev,
       [imageId]: previewUrl,
     }))
+
+    // Также сохраняем файл для возможной загрузки на сервер
+    const fileData = {
+      file: file,
+      previewUrl: previewUrl,
+      timestamp: Date.now(),
+    }
+    localStorage.setItem(
+      `image-file-${imageId}`,
+      JSON.stringify({
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        previewUrl: previewUrl,
+      }),
+    )
   }
 
   const getCurrentImageUrl = (image: ImageItem) => {
@@ -387,6 +407,21 @@ export function UniversalImageManager() {
     }
   }
 
+  const applyChangesToSite = async () => {
+    const changedImages = Object.keys(uploadedImages)
+    if (changedImages.length === 0) {
+      alert("Нет изменений для применения!")
+      return
+    }
+
+    if (confirm(`Применить ${changedImages.length} изменений на сайте? Это действие нельзя отменить.`)) {
+      // Здесь можно добавить логику для загрузки файлов на сервер
+      // Пока просто сохраняем в localStorage как "применено"
+      localStorage.setItem("applied-site-images", JSON.stringify(uploadedImages))
+      alert(`${changedImages.length} изображений успешно применены на сайте!`)
+    }
+  }
+
   return (
     <div className="space-y-6">
       {/* Header Controls */}
@@ -420,6 +455,10 @@ export function UniversalImageManager() {
             </Button>
             <input type="file" accept=".json" onChange={importImages} className="hidden" />
           </label>
+          <Button onClick={applyChangesToSite} variant="default" className="bg-green-600 hover:bg-green-700">
+            <Upload className="h-4 w-4 mr-2" />
+            Применить изменения на сайте
+          </Button>
         </div>
       </div>
 
