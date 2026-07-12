@@ -1,0 +1,24 @@
+/* NutriLens base localization (M15). All user-facing strings route through this catalog so the
+   app is ready for additional languages. Extend with e.g. ru.lproj/Localizable.strings. */
+
+"home.remaining" = "%d kcal remaining";
+"home.addWater" = "Add water";
+"home.aiTip" = "AI Tip of the Day";
+
+"coach.placeholder" = "Ask your coach…";
+"coach.greeting" = "Hi! I'm your nutrition coach. Ask me anything about your goals.";
+
+"camera.noFood.title" = "No food detected";
+"camera.noFood.message" = "Point the camera at your meal and try again.";
+"camera.saveMeal" = "Save meal";
+
+"paywall.title" = "NutriLens Premium";
+"paywall.continue" = "Continue";
+"paywall.restore" = "Restore purchases";
+
+"settings.units" = "Units";
+"settings.reminders" = "Reminders";
+"settings.signOut" = "Sign out";
+
+"common.retry" = "Try Again";
+"common.done" = "Done";
