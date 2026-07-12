@@ -81,6 +81,22 @@ public struct NutritionFacts: Codable, Sendable, Hashable {
         self.source = source
     }
 
+    /// Scale every value by a multiplier (e.g. when a portion is edited from 150g to 200g).
+    public func scaled(byFactor f: Double) -> NutritionFacts {
+        NutritionFacts(
+            calories: calories * f,
+            macros: MacroBreakdown(protein: macros.protein * f,
+                                   carbs: macros.carbs * f,
+                                   fat: macros.fat * f),
+            fiber: fiber * f,
+            sugar: sugar * f,
+            sodium: sodium * f,
+            vitamins: vitamins.map { Micronutrient(name: $0.name, amount: $0.amount * f, unit: $0.unit) },
+            minerals: minerals.map { Micronutrient(name: $0.name, amount: $0.amount * f, unit: $0.unit) },
+            source: source
+        )
+    }
+
     /// Scale facts expressed per 100g to an arbitrary gram portion.
     public func scaled(fromPer100gTo grams: Double) -> NutritionFacts {
         let f = grams / 100.0

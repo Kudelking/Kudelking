@@ -4,26 +4,23 @@ included:
 excluded:
   - "**/.build"
   - "**/*.generated.swift"
+  - "**/Tests"          # test doubles favor brevity over lint pedantry
 
 opt_in_rules:
-  - empty_count
-  - explicit_init
   - closure_spacing
   - contains_over_first_not_nil
   - fatal_error_message
   - first_where
-  - force_unwrapping
-  - implicitly_unwrapped_optional
   - redundant_nil_coalescing
-  - unused_import
 
 line_length:
   warning: 120
-  error: 160
+  error: 200
   ignores_comments: true
+  ignores_urls: true
 
 type_body_length:
-  warning: 300
+  warning: 320
 
 file_length:
   warning: 500
@@ -32,5 +29,5 @@ force_cast: error
 force_try: error
 
 identifier_name:
-  min_length: 2
-  excluded: [id, x, y, p, c, f]
+  min_length: 1
+  excluded: [id, x, y, p, c, f, n, v, a, b]

@@ -77,4 +77,17 @@ struct NutritionScalingTests {
         #expect(abs(scaled.macros.protein - 46.5) < 0.001)
         #expect(abs(scaled.minerals.first!.amount - 1.5) < 0.001)
     }
+
+    @Test("Scaling by a factor multiplies every value")
+    func scaleByFactor() {
+        let facts = NutritionFacts(calories: 200,
+                                   macros: MacroBreakdown(protein: 30, carbs: 5, fat: 4),
+                                   fiber: 2, sugar: 1, sodium: 100,
+                                   minerals: [Micronutrient(name: "Iron", amount: 2, unit: "mg")])
+        let doubled = facts.scaled(byFactor: 2)
+        #expect(doubled.calories == 400)
+        #expect(doubled.macros.protein == 60)
+        #expect(doubled.sodium == 200)
+        #expect(doubled.minerals.first?.amount == 4)
+    }
 }

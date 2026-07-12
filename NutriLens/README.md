@@ -3,7 +3,7 @@
 Production-grade iOS AI nutrition assistant. Photograph food → detect dishes → estimate
 portion → compute calories, macros, and micronutrients → auto-log → track → coach.
 
-> **Status:** M0 foundation · M1 persistence · M2 auth · M3 onboarding · M5 nutrition DB · M6 vision. See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
+> **Status:** M0–M3 · M5 nutrition DB · M6 vision · M7 photo analysis (E2E). See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
 > for the full system design and the 13-stage roadmap. Code lands module-by-module; each module
 > must satisfy the Definition of Done (no warnings, lint clean, ≥70% logic tests, all UI states,
 > no retain cycles, a11y audit, no secrets).
@@ -28,8 +28,11 @@ Packages/
 Networking/
   APIClient              HTTPClient seam, URLSession impl, retry, mock (+ tests)
   NutritionDB            USDA + OpenFoodFacts + barcode behind NutritionDatabase (+ tests)
+  AIGateway              BFF client for /analyzeMeal + /coachChat (+ tests)
 Platform/
   VisionService          image prep, perceptual hash, on-device food/barcode recognizer (+ tests)
+Features/
+  MealCapture            analyze cascade, result screen + editing, save (+ tests)
 backend/functions        BFF: analyzeMeal (OpenAI + USDA + cache + rate-limit)
 backend/firestore.rules  owner-only security rules
 docs/ARCHITECTURE.md     full design document
