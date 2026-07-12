@@ -48,6 +48,7 @@ jobs:
           run_pkg Packages/Networking/NutritionDB NutritionDB test
           run_pkg Packages/Networking/AIGateway AIGateway test
           run_pkg Packages/Platform/VisionService VisionService test
+          run_pkg Packages/Platform/NotificationsService NotificationsService test
           run_pkg Packages/Features/Authentication Authentication test
           run_pkg Packages/Features/Onboarding Onboarding test
           run_pkg Packages/Features/MealCapture MealCapture test
