@@ -25,7 +25,7 @@ jobs:
 
       - name: Test Swift packages
         run: |
-          for pkg in Packages/Core/CoreModels Packages/Core/CoreConcurrency; do
+          for pkg in Packages/Core/CoreModels Packages/Core/CoreConcurrency Packages/Core/CorePersistence; do
             echo "== Testing $pkg =="
             swift test --package-path "$pkg"
           done
