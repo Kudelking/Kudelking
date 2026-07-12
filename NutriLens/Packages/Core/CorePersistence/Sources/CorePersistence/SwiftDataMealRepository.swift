@@ -13,6 +13,11 @@ public actor SwiftDataMealRepository: MealRepository {
     // Live observers keyed by a token, each watching a specific day.
     private var observers: [UUID: (day: Date, continuation: AsyncStream<[MealEntity]>.Continuation)] = [:]
 
+    /// Public factory (the `@ModelActor`-synthesized `init(modelContainer:)` is internal).
+    public static func make(container: ModelContainer) -> SwiftDataMealRepository {
+        SwiftDataMealRepository(modelContainer: container)
+    }
+
     // MARK: - MealRepository
 
     public func log(_ meal: MealEntity) async throws {

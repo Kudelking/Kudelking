@@ -1,0 +1,116 @@
+# XcodeGen spec — generates NutriLens.xcodeproj from these declarations.
+#   brew install xcodegen && xcodegen generate
+# See docs/XCODE_SETUP.md for the full flow.
+name: NutriLens
+options:
+  bundleIdPrefix: com.nutrilens
+  deploymentTarget:
+    iOS: "17.0"
+    watchOS: "10.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    DEVELOPMENT_TEAM: "" # set your Apple Developer Team ID
+    CODE_SIGN_STYLE: Automatic
+
+# Local Swift packages (the whole app is assembled from these).
+packages:
+  CoreModels: { path: Packages/Core/CoreModels }
+  CoreUI: { path: Packages/Core/CoreUI }
+  CoreConcurrency: { path: Packages/Core/CoreConcurrency }
+  CorePersistence: { path: Packages/Core/CorePersistence }
+  APIClient: { path: Packages/Networking/APIClient }
+  NutritionDB: { path: Packages/Networking/NutritionDB }
+  AIGateway: { path: Packages/Networking/AIGateway }
+  VisionService: { path: Packages/Platform/VisionService }
+  NotificationsService: { path: Packages/Platform/NotificationsService }
+  Authentication: { path: Packages/Features/Authentication }
+  Onboarding: { path: Packages/Features/Onboarding }
+  MealCapture: { path: Packages/Features/MealCapture }
+  Home: { path: Packages/Features/Home }
+  AICoach: { path: Packages/Features/AICoach }
+  Progress: { path: Packages/Features/Progress }
+  Paywall: { path: Packages/Features/Paywall }
+  Settings: { path: Packages/Features/Settings }
+
+targets:
+  NutriLens:
+    type: application
+    platform: iOS
+    sources:
+      - App
+    info:
+      path: App/Info.plist
+      properties:
+        CFBundleDisplayName: NutriLens
+        UILaunchScreen: {}
+        NSCameraUsageDescription: "NutriLens uses the camera to analyze your meals."
+        NSPhotoLibraryUsageDescription: "Import food photos to analyze their nutrition."
+        NSHealthShareUsageDescription: "Read steps and weight to personalize your plan."
+        NSHealthUpdateUsageDescription: "Write your logged nutrition to Health."
+        UIBackgroundModes: [remote-notification]
+    entitlements:
+      path: App/NutriLens.entitlements
+      properties:
+        com.apple.security.application-groups: [group.com.nutrilens.app]
+        com.apple.developer.healthkit: true
+        aps-environment: development
+    dependencies:
+      - package: CoreModels
+      - package: CoreUI
+      - package: CoreConcurrency
+      - package: CorePersistence
+      - package: APIClient
+      - package: NutritionDB
+      - package: AIGateway
+      - package: VisionService
+      - package: NotificationsService
+      - package: Authentication
+      - package: Onboarding
+      - package: MealCapture
+      - package: Home
+      - package: AICoach
+      - package: Progress
+      - package: Paywall
+      - package: Settings
+      - target: NutriLensWidgetExtension
+      - target: NutriLensWatch
+
+  NutriLensWidgetExtension:
+    type: app-extension
+    platform: iOS
+    sources: [Widgets]
+    info:
+      path: Widgets/Info.plist
+      properties:
+        CFBundleDisplayName: NutriLens
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    entitlements:
+      path: Widgets/Widgets.entitlements
+      properties:
+        com.apple.security.application-groups: [group.com.nutrilens.app]
+    dependencies:
+      - package: CoreModels
+      - package: CoreUI
+
+  NutriLensWatch:
+    type: application
+    platform: watchOS
+    sources: [Watch]
+    info:
+      path: Watch/Info.plist
+      properties:
+        CFBundleDisplayName: NutriLens
+        WKApplication: true
+    entitlements:
+      path: Watch/Watch.entitlements
+      properties:
+        com.apple.security.application-groups: [group.com.nutrilens.app]
+    dependencies:
+      - package: CoreModels
+      - package: CoreUI
