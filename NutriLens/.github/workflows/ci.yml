@@ -54,6 +54,7 @@ jobs:
           run_pkg Packages/Features/Home Home test
           run_pkg Packages/Features/AICoach AICoach test
           run_pkg Packages/Features/Progress Progress test
+          run_pkg Packages/Features/Paywall Paywall test
 
   backend:
     name: Backend lint & test
