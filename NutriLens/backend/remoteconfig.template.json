@@ -1,0 +1,28 @@
+{
+  "parameters": {
+    "free_photoAnalyses": {
+      "defaultValue": { "value": "3" },
+      "description": "Free tier: photo analyses per day"
+    },
+    "free_coachMessages": {
+      "defaultValue": { "value": "10" },
+      "description": "Free tier: coach messages per day"
+    },
+    "premium_photoAnalyses": {
+      "defaultValue": { "value": "100" },
+      "description": "Premium tier: photo analyses per day (soft cap)"
+    },
+    "premium_coachMessages": {
+      "defaultValue": { "value": "200" },
+      "description": "Premium tier: coach messages per day"
+    },
+    "vision_model_id": {
+      "defaultValue": { "value": "gpt-vision-latest" },
+      "description": "Pinned vision model id"
+    },
+    "paywall_after_first_analysis": {
+      "defaultValue": { "value": "true" },
+      "description": "Feature flag: show paywall only after the first successful analysis"
+    }
+  }
+}

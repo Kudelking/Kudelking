@@ -1,0 +1,47 @@
+name: NutriLens CI
+
+on:
+  pull_request:
+    paths: ["NutriLens/**"]
+  push:
+    branches: [main]
+    paths: ["NutriLens/**"]
+
+jobs:
+  swift:
+    name: Swift build & test
+    runs-on: macos-15
+    defaults:
+      run:
+        working-directory: NutriLens
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lint
+        run: |
+          brew install swiftlint swiftformat
+          swiftlint --strict
+          swiftformat --lint .
+
+      - name: Test Swift packages
+        run: |
+          for pkg in Packages/Core/CoreModels Packages/Core/CoreConcurrency; do
+            echo "== Testing $pkg =="
+            swift test --package-path "$pkg"
+          done
+
+  backend:
+    name: Backend lint & test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: NutriLens/backend/functions
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+      - run: npm test

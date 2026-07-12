@@ -1,0 +1,25 @@
+# Xcode
+build/
+DerivedData/
+*.xcuserstate
+*.xcscmblueprint
+xcuserdata/
+.swiftpm/xcode/package.xcworkspace/xcuserdata/
+
+# Swift Package Manager
+.build/
+Package.resolved
+
+# Secrets — provisioned via CI, never committed
+Config/GoogleService-Info.plist
+Config/*.xcconfig.local
+**/serviceAccountKey.json
+.env
+.env.*
+
+# Node (backend)
+backend/functions/node_modules/
+backend/functions/lib/
+
+# macOS
+.DS_Store
