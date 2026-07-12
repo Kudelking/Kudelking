@@ -23,12 +23,30 @@ jobs:
           swiftlint --strict
           swiftformat --lint .
 
-      - name: Test Swift packages
+      - name: Test Swift packages (iOS Simulator)
         run: |
-          for pkg in Packages/Core/CoreModels Packages/Core/CoreConcurrency Packages/Core/CorePersistence Packages/Networking/APIClient Packages/Networking/NutritionDB Packages/Features/Authentication Packages/Features/Onboarding; do
-            echo "== Testing $pkg =="
-            swift test --package-path "$pkg"
-          done
+          set -eo pipefail
+          # iOS-only packages import UIKit/Vision/uiColor, so they must build for iOS, not the
+          # macOS host. Each SPM package is driven via xcodebuild against an iOS simulator; the
+          # implicit scheme name equals the package name.
+          DEST='platform=iOS Simulator,name=iPhone 16,OS=latest'
+          run_pkg() { # <path> <scheme> <action>
+            echo "== $3 $2 =="
+            ( cd "$1" && xcodebuild "$3" \
+                -scheme "$2" -destination "$DEST" \
+                -skipPackagePluginValidation CODE_SIGNING_ALLOWED=NO )
+          }
+          # CoreUI has no test target — build only.
+          run_pkg Packages/Core/CoreUI CoreUI build
+          # Everything else has tests.
+          run_pkg Packages/Core/CoreModels CoreModels test
+          run_pkg Packages/Core/CoreConcurrency CoreConcurrency test
+          run_pkg Packages/Core/CorePersistence CorePersistence test
+          run_pkg Packages/Networking/APIClient APIClient test
+          run_pkg Packages/Networking/NutritionDB NutritionDB test
+          run_pkg Packages/Platform/VisionService VisionService test
+          run_pkg Packages/Features/Authentication Authentication test
+          run_pkg Packages/Features/Onboarding Onboarding test
 
   backend:
     name: Backend lint & test
