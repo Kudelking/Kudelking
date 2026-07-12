@@ -59,13 +59,15 @@ public struct DailySummary: Codable, Sendable, Hashable {
     public var steps: Int
     public var targetCalories: Int
     public var macroTargets: MacroTargets
+    public var targetWaterMl: Int
 
     public init(date: Date, consumedCalories: Double, macros: MacroBreakdown,
                 fiber: Double, waterMl: Int, steps: Int,
-                targetCalories: Int, macroTargets: MacroTargets) {
+                targetCalories: Int, macroTargets: MacroTargets, targetWaterMl: Int = 0) {
         self.date = date; self.consumedCalories = consumedCalories; self.macros = macros
         self.fiber = fiber; self.waterMl = waterMl; self.steps = steps
         self.targetCalories = targetCalories; self.macroTargets = macroTargets
+        self.targetWaterMl = targetWaterMl
     }
 
     public var remainingCalories: Int { targetCalories - Int(consumedCalories.rounded()) }

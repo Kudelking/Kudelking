@@ -82,6 +82,14 @@ public protocol NutritionDatabase: Sendable {
 
 // MARK: - Platform
 
+public protocol WaterStore: Sendable {
+    /// Total water logged (ml) for the given day.
+    func water(on day: Date) async throws -> Int
+    /// Add `ml` water for the day and return the new running total.
+    @discardableResult
+    func addWater(_ ml: Int, on day: Date) async throws -> Int
+}
+
 public protocol HealthKitService: Sendable {
     func requestAuthorization() async throws
     func todaySteps() async throws -> Int
