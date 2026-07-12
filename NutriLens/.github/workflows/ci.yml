@@ -52,6 +52,7 @@ jobs:
           run_pkg Packages/Features/Onboarding Onboarding test
           run_pkg Packages/Features/MealCapture MealCapture test
           run_pkg Packages/Features/Home Home test
+          run_pkg Packages/Features/AICoach AICoach test
 
   backend:
     name: Backend lint & test
