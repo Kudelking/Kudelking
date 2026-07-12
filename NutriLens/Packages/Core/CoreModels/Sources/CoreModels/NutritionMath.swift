@@ -67,6 +67,12 @@ public enum NutritionMath {
                             fat: fatGrams.rounded())
     }
 
+    /// Recommended daily water intake (ml) ≈ 35 ml per kg of bodyweight, rounded to 50 ml.
+    public static func recommendedWaterMl(weightKg: Double) -> Int {
+        let raw = weightKg * 35
+        return Int((raw / 50).rounded() * 50)
+    }
+
     /// Body Mass Index (kg/m²).
     public static func bmi(weightKg: Double, heightCm: Double) -> Double {
         guard heightCm > 0 else { return 0 }

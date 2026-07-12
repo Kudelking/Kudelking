@@ -5,7 +5,9 @@ import SwiftUI
 public enum Theme {
 
     public enum Colors {
-        public static let accent = Color("Accent", bundle: .module)          // brand green
+        // Defined programmatically (no asset catalog) so CoreUI needs no bundle resources.
+        // When brand assets land in M15, swap these for named colors from an asset catalog.
+        public static let accent = Color(red: 0.20, green: 0.78, blue: 0.45)   // brand green
         public static let background = Color(uiColor: .systemBackground)
         public static let secondaryBackground = Color(uiColor: .secondarySystemBackground)
         public static let card = Color(uiColor: .secondarySystemGroupedBackground)
@@ -13,10 +15,10 @@ public enum Theme {
         public static let secondaryText = Color(uiColor: .secondaryLabel)
         public static let separator = Color(uiColor: .separator)
 
-        // Macro-specific colors, WCAG-AA against card background in both schemes.
-        public static let protein = Color("Protein", bundle: .module)
-        public static let carbs = Color("Carbs", bundle: .module)
-        public static let fat = Color("Fat", bundle: .module)
+        // Macro-specific colors, chosen for contrast against the card background in both schemes.
+        public static let protein = Color(red: 0.31, green: 0.51, blue: 0.96)  // blue
+        public static let carbs = Color(red: 0.96, green: 0.62, blue: 0.24)    // amber
+        public static let fat = Color(red: 0.86, green: 0.36, blue: 0.62)      // magenta
         public static let calories = accent
         public static let warning = Color(uiColor: .systemOrange)
         public static let danger = Color(uiColor: .systemRed)
